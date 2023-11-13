@@ -1,0 +1,361 @@
+import * as React from 'react';
+import {
+  useQuery,
+  useMutation,
+  useIsFetching,
+  useQueryClient,
+} from 'react-query';
+import useFetch from 'react-fetch-hook';
+import { useIsFocused } from '@react-navigation/native';
+import { handleResponse, isOkStatus } from '../utils/handleRestApiResponse';
+import usePrevious from '../utils/usePrevious';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+
+export const loginPOST = (
+  Constants,
+  { emailLoginInput, passwordLoginValue },
+  handlers = {}
+) =>
+  fetch(
+    `https://qrvcspozklogjrnrrohd.supabase.co/auth/v1/token?grant_type=password`,
+    {
+      body: JSON.stringify({
+        email: emailLoginInput,
+        password: passwordLoginValue,
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+      },
+      method: 'POST',
+    }
+  ).then(res => handleResponse(res, handlers));
+
+export const useLoginPOST = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  const queryClient = useQueryClient();
+  return useQuery(
+    ['supabaseStagingLoginPOST', args],
+    () => loginPOST(Constants, args, handlers),
+    {
+      refetchInterval,
+      onSuccess: () =>
+        queryClient.invalidateQueries(['supabaseStagingLoginPOSTS']),
+    }
+  );
+};
+
+export const FetchLoginPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  emailLoginInput,
+  passwordLoginValue,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useLoginPOST(
+    { emailLoginInput, passwordLoginValue },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchLogin: refetch });
+};
+
+export const getGamesAssignorGET = (Constants, { profile_id }, handlers = {}) =>
+  fetch(
+    `https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/games?select=${encodeURIComponent(
+      `id,game_id,title,home_team,away_team,sport!inner(*),duration,expectations,contact_email,contact_number,game_id,game_level,event_datetime,published,referees_count,venue!inner(*),organizer:organizer_id(first_name, image,id,last_name),game_referees(*,tag,tags!inner(*,user_tags(*)),referee_id,profiles(first_name,last_name,image,contact_number))`
+    )}&assignor_id=${encodeURIComponent(
+      `eq.${
+        typeof profile_id === 'string'
+          ? profile_id
+          : JSON.stringify(profile_id ?? '')
+      }`
+    )}&removed=${encodeURIComponent(`eq.false`)}&order=${encodeURIComponent(
+      `event_datetime.asc`
+    )}&finished=${encodeURIComponent(`is.NULL`)}`,
+    {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+      },
+    }
+  ).then(res => handleResponse(res, handlers));
+
+export const useGetGamesAssignorGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  return useQuery(
+    ['games', args],
+    () => getGamesAssignorGET(Constants, args, handlers),
+    {
+      refetchInterval,
+    }
+  );
+};
+
+export const FetchGetGamesAssignorGET = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  profile_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    refetch,
+  } = useGetGamesAssignorGET(
+    { profile_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchGetGamesAssignor: refetch });
+};
+
+export const getProfileSessionGET = (Constants, { user }, handlers = {}) =>
+  fetch(
+    `https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/profiles?select=${encodeURIComponent(
+      `*,roles(id,name)`
+    )}&user_id=${encodeURIComponent(
+      `eq.${typeof user === 'string' ? user : JSON.stringify(user ?? '')}`
+    )}`,
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization: Constants['supabaseAccessToken'],
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+      },
+    }
+  ).then(res => handleResponse(res, handlers));
+
+export const useGetProfileSessionGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  const queryClient = useQueryClient();
+  return useQuery(
+    ['profile', args],
+    () => getProfileSessionGET(Constants, args, handlers),
+    {
+      refetchInterval,
+      onSuccess: () => queryClient.invalidateQueries(['profiles']),
+    }
+  );
+};
+
+export const FetchGetProfileSessionGET = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  user,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    refetch,
+  } = useGetProfileSessionGET(
+    { user },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchGetProfileSession: refetch });
+};
+
+export const registerPOST = (
+  Constants,
+  { email_body_variable, password_body_variable },
+  handlers = {}
+) =>
+  fetch(`https://qrvcspozklogjrnrrohd.supabase.co/auth/v1/signup`, {
+    body: JSON.stringify({
+      email: email_body_variable,
+      password: password_body_variable,
+    }),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      apikey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useRegisterPOST = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  const queryClient = useQueryClient();
+  return useQuery(
+    ['supabaseStagingRegisterPOST', args],
+    () => registerPOST(Constants, args, handlers),
+    {
+      refetchInterval,
+      onSuccess: () =>
+        queryClient.invalidateQueries(['supabaseStagingRegisterPOSTS']),
+    }
+  );
+};
+
+export const FetchRegisterPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  email_body_variable,
+  password_body_variable,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useRegisterPOST(
+    { email_body_variable, password_body_variable },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchRegister: refetch });
+};
+
+export const rolesGET = (Constants, _args, handlers = {}) =>
+  fetch(
+    `https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/roles?select=${encodeURIComponent(
+      `*`
+    )}`,
+    {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+      },
+    }
+  ).then(res => handleResponse(res, handlers));
+
+export const useRolesGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  return useQuery(['roles', args], () => rolesGET(Constants, args, handlers), {
+    refetchInterval,
+  });
+};
+
+export const FetchRolesGET = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    refetch,
+  } = useRolesGET({}, { refetchInterval, handlers: { onData, ...handlers } });
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchRoles: refetch });
+};
