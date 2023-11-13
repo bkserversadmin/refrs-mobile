@@ -135,7 +135,7 @@ const RegisterScreen = props => {
               dimensions.width
             )}
           >
-            {'Register github'}
+            {'Register'}
           </Text>
           {/* Text 2 */}
           <Text
@@ -151,7 +151,7 @@ const RegisterScreen = props => {
               dimensions.width
             )}
           >
-            {'Create your account enrique'}
+            {'Create your account idk'}
           </Text>
           {/* form-control name */}
           <View
