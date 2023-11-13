@@ -128,7 +128,51 @@ const DashboardScreen = props => {
             dimensions.width
           )}
         >
-          <Icon name={'Ionicons/notifications'} size={24} />
+          <Icon
+            color={theme.colors['Primary/Yellow800']}
+            name={'Ionicons/notifications'}
+            size={24}
+            style={StyleSheet.applyWidth(
+              { backgroundColor: 'rgba(0, 0, 0, 0)' },
+              dimensions.width
+            )}
+          />
+          {/* Notification Quantity */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                backgroundColor: theme.colors['System/Error500'],
+                borderColor: theme.colors['Primary/Yellow100'],
+                borderRadius: 100,
+                borderWidth: 2,
+                height: 14,
+                justifyContent: 'center',
+                position: 'absolute',
+                right: 8,
+                top: 6,
+                width: 14,
+              },
+              dimensions.width
+            )}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                  color: 'rgb(255, 255, 255)',
+                  fontFamily: 'Inter_700Bold',
+                  fontSize: 9,
+                }),
+                dimensions.width
+              )}
+            >
+              {'2'}
+            </Text>
+          </View>
         </View>
       </View>
       {/* Welcome */}

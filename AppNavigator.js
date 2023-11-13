@@ -9,8 +9,13 @@ import theme from './themes/Draftbit.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
 import DashboardScreen from './screens/DashboardScreen';
+import EarningsDetailsScreen from './screens/EarningsDetailsScreen';
 import EarningsScreen from './screens/EarningsScreen';
+import GameDetailsScreen from './screens/GameDetailsScreen';
 import LoginScreen from './screens/LoginScreen';
+import NotificationsScreen from './screens/NotificationsScreen';
+import ProfilePayoutInformationScreen from './screens/ProfilePayoutInformationScreen';
+import ProfilePersonalInformationScreen from './screens/ProfilePersonalInformationScreen';
 import RegisterScreen from './screens/RegisterScreen';
 
 const Stack = createStackNavigator();
@@ -101,6 +106,41 @@ export default function RootAppNavigator() {
           component={EarningsScreen}
           options={{
             title: 'Earnings',
+          }}
+        />
+        <Stack.Screen
+          name="EarningsDetailsScreen"
+          component={EarningsDetailsScreen}
+          options={{
+            title: 'Earnings Details',
+          }}
+        />
+        <Stack.Screen
+          name="ProfilePersonalInformationScreen"
+          component={ProfilePersonalInformationScreen}
+          options={{
+            title: 'Profile - Personal information',
+          }}
+        />
+        <Stack.Screen
+          name="ProfilePayoutInformationScreen"
+          component={ProfilePayoutInformationScreen}
+          options={{
+            title: 'Profile - Payout information ',
+          }}
+        />
+        <Stack.Screen
+          name="NotificationsScreen"
+          component={NotificationsScreen}
+          options={{
+            title: 'Notifications',
+          }}
+        />
+        <Stack.Screen
+          name="GameDetailsScreen"
+          component={GameDetailsScreen}
+          options={{
+            title: 'Game Details',
           }}
         />
       </Stack.Navigator>

@@ -3,13 +3,15 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as SupabaseStagingApi from '../apis/SupabaseStagingApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import dropdownOptionsAdapter from '../global-functions/dropdownOptionsAdapter';
+import validateBaseString from '../global-functions/validateBaseString';
+import validateEmail from '../global-functions/validateEmail';
+import { parseBoolean } from '../utils';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import {
   Button,
   Link,
   Picker,
-  PickerItem,
   ScreenContainer,
   TextInput,
   withTheme,
@@ -32,8 +34,12 @@ const RegisterScreen = props => {
         }
         const roles_result = (await SupabaseStagingApi.rolesGET(Constants))
           ?.json;
-        setRoles_array_variable(roles_result);
-        dropdownOptionsAdapter(roles_result, undefined, undefined);
+        const result_function_drowpdow = dropdownOptionsAdapter(
+          roles_result,
+          'name',
+          'id'
+        );
+        setRoles_array_variable(result_function_drowpdow);
       } catch (err) {
         console.error(err);
       }
@@ -41,16 +47,25 @@ const RegisterScreen = props => {
     handler();
   }, [isFocused]);
   const [birthdate_variable, setBirthdate_variable] = React.useState('');
+  const [confirm_error_var, setConfirm_error_var] = React.useState(true);
   const [confirm_password_variable, setConfirm_password_variable] =
     React.useState('');
+  const [email_error_var, setEmail_error_var] = React.useState(true);
   const [email_variable, setEmail_variable] = React.useState('');
   const [first_name_variable, setFirst_name_variable] = React.useState('');
+  const [firstname_error_var, setFirstname_error_var] = React.useState(null);
   const [last_name_variable, setLast_name_variable] = React.useState('');
+  const [lastname_error_var, setLastname_error_var] = React.useState(null);
+  const [password_error_var, setPassword_error_var] = React.useState(
+    'password is required'
+  );
   const [password_variable, setPassword_variable] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState(undefined);
   const [roles_array_variable, setRoles_array_variable] = React.useState([]);
   const [textInputValue, setTextInputValue] = React.useState('');
   const [type_account_variable, setType_account_variable] = React.useState('');
+  const [typeaccount_error_var, setTypeaccount_error_var] =
+    React.useState(true);
 
   return (
     <ScreenContainer
@@ -151,7 +166,7 @@ const RegisterScreen = props => {
               dimensions.width
             )}
           >
-            {'Create your account idk'}
+            {'Create your account'}
           </Text>
           {/* form-control name */}
           <View
@@ -185,16 +200,16 @@ const RegisterScreen = props => {
               autoCapitalize={'none'}
               changeTextDelay={500}
               onChangeText={newFirstNameInputValue => {
-                const textInputValue = newFirstNameInputValue;
                 try {
-                  const valueQGhzxewX = newFirstNameInputValue?.toLowerCase();
+                  const valueQGhzxewX = newFirstNameInputValue;
                   setFirst_name_variable(valueQGhzxewX);
                   const first_name_result = valueQGhzxewX;
                 } catch (err) {
                   console.error(err);
                 }
               }}
-              placeholder={'Enter a value...'}
+              placeholder={'first name'}
+              placeholderTextColor={theme.colors['Light']}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Text Input'],
@@ -213,8 +228,25 @@ const RegisterScreen = props => {
                 ),
                 dimensions.width
               )}
-              value={textInputValue}
+              value={first_name_variable}
             />
+            {/* error firstname text */}
+            <>
+              {!parseBoolean(firstname_error_var) ? null : (
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                      color: theme.colors['System/Error500'],
+                    }),
+                    dimensions.width
+                  )}
+                >
+                  {firstname_error_var}
+                </Text>
+              )}
+            </>
           </View>
           {/* form-control type of account */}
           <View
@@ -263,6 +295,7 @@ const RegisterScreen = props => {
                   console.error(err);
                 }
               }}
+              options={roles_array_variable}
               placeholder={'Select an option'}
               rightIconName={'Entypo/chevron-down'}
               selectedIconColor={theme.colors['Medium']}
@@ -280,9 +313,20 @@ const RegisterScreen = props => {
               )}
               type={'solid'}
               value={pickerValue}
+            />
+            {/* error type account text */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                  color: theme.colors['System/Error500'],
+                }),
+                dimensions.width
+              )}
             >
-              <PickerItem />
-            </Picker>
+              {'type of account is required'}
+            </Text>
           </View>
           {/* form-control password */}
           <View
@@ -336,6 +380,19 @@ const RegisterScreen = props => {
                 dimensions.width
               )}
             />
+            {/* error password text */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                  color: theme.colors['System/Error500'],
+                }),
+                dimensions.width
+              )}
+            >
+              {password_error_var}
+            </Text>
           </View>
           {/* form-control last name */}
           <View
@@ -371,7 +428,9 @@ const RegisterScreen = props => {
               onChangeText={newLastNameInputValue => {
                 const textInputValue = newLastNameInputValue;
                 try {
-                  setTextInputValue(textInputValue);
+                  const valuep1QZThci = newLastNameInputValue;
+                  setLast_name_variable(valuep1QZThci);
+                  const last_name_result = valuep1QZThci;
                 } catch (err) {
                   console.error(err);
                 }
@@ -397,6 +456,19 @@ const RegisterScreen = props => {
               )}
               value={textInputValue}
             />
+            {/* error lastname text */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                  color: theme.colors['System/Error500'],
+                }),
+                dimensions.width
+              )}
+            >
+              {'last name is required'}
+            </Text>
           </View>
           {/* form-control email */}
           <View
@@ -405,7 +477,7 @@ const RegisterScreen = props => {
               dimensions.width
             )}
           >
-            {/* email_input */}
+            {/* Text email */}
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -424,19 +496,22 @@ const RegisterScreen = props => {
             >
               {'email'}
             </Text>
+            {/* email_input */}
             <TextInput
               allowFontScaling={true}
               autoCapitalize={'none'}
               changeTextDelay={500}
-              onChangeText={newTextInputValue => {
-                const textInputValue = newTextInputValue;
+              onChangeText={newEmailInputValue => {
                 try {
-                  setTextInputValue(textInputValue);
+                  const value9xQwqCXa = newEmailInputValue;
+                  setEmail_variable(value9xQwqCXa);
+                  const email_result = value9xQwqCXa;
                 } catch (err) {
                   console.error(err);
                 }
               }}
               placeholder={'Enter a value...'}
+              placeholderTextColor={theme.colors['Medium']}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Text Input'],
@@ -455,8 +530,26 @@ const RegisterScreen = props => {
                 ),
                 dimensions.width
               )}
-              value={textInputValue}
+              value={email_variable}
             />
+            {/* error email text */}
+            <>
+              {email_error_var ? null : (
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                      color: theme.colors['System/Error500'],
+                      margin: 2,
+                    }),
+                    dimensions.width
+                  )}
+                >
+                  {'Ups.. this is not a valid email'}
+                </Text>
+              )}
+            </>
           </View>
           {/* form-control password 2 */}
           <View
@@ -489,6 +582,15 @@ const RegisterScreen = props => {
               allowFontScaling={true}
               autoCapitalize={'none'}
               changeTextDelay={500}
+              onChangeText={newConfirmPasswordInputValue => {
+                try {
+                  const value1n87Lph8 = newConfirmPasswordInputValue;
+                  setConfirm_password_variable(value1n87Lph8);
+                  const confirm_result = value1n87Lph8;
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               placeholder={'Enter a value...'}
               secureTextEntry={true}
               style={StyleSheet.applyWidth(
@@ -510,6 +612,19 @@ const RegisterScreen = props => {
                 dimensions.width
               )}
             />
+            {/* confirm password error text */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                  color: theme.colors['System/Error500'],
+                }),
+                dimensions.width
+              )}
+            >
+              {'password do not match'}
+            </Text>
           </View>
           {/* Button container */}
           <View
@@ -525,6 +640,20 @@ const RegisterScreen = props => {
           >
             {/* register_button */}
             <Button
+              onPress={() => {
+                try {
+                  const validate_email_result = validateEmail(email_variable);
+                  setEmail_error_var(parseBoolean(validate_email_result));
+                  const firstname_val_response = validateBaseString(
+                    first_name_variable,
+                    parseInt(16, 10)
+                  );
+                  setFirstname_error_var(firstname_val_response);
+                  console.log(firstname_error_var);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
                   backgroundColor: 'rgb(248, 211, 71)',

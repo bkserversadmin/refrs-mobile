@@ -374,7 +374,12 @@ const LoginScreen = props => {
 
         <View
           style={StyleSheet.applyWidth(
-            { flexDirection: 'row', marginTop: 32, width: '100%' },
+            {
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: 32,
+              width: '100%',
+            },
             dimensions.width
           )}
         >
@@ -397,6 +402,13 @@ const LoginScreen = props => {
           <Link
             accessible={true}
             allowFontScaling={true}
+            onPress={() => {
+              try {
+                navigation.navigate('RegisterScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'], {
                 color: 'rgb(197, 156, 7)',
