@@ -135,7 +135,7 @@ const RegisterScreen = props => {
               dimensions.width
             )}
           >
-            {'Register'}
+            {'Register github'}
           </Text>
           {/* Text 2 */}
           <Text
