@@ -4,6 +4,7 @@ export default {
   roundness: 6,
   colors: {
     Background: 'rgba(251, 252, 253, 1)',
+    'Custom Color': 'rgb(128, 128, 128)',
     Divider: 'rgba(234, 237, 242, 1)',
     Grey100: 'rgb(252, 252, 252)',
     Grey200: 'rgb(245, 245, 245)',
@@ -53,6 +54,7 @@ export default {
     'System/Error700': 'rgb(195, 26, 0)',
     'System/Error800': 'rgb(102, 20, 0)',
     background: 'rgba(251, 252, 253, 1)',
+    custom_rgb128_128_128: 'rgb(128, 128, 128)',
     divider: 'rgba(234, 237, 242, 1)',
     grey100: 'rgb(252, 252, 252)',
     grey200: 'rgb(245, 245, 245)',

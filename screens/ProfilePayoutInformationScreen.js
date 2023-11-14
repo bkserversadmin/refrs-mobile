@@ -5,7 +5,13 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
-import { Button, Icon, ScreenContainer, withTheme } from '@draftbit/ui';
+import {
+  Button,
+  Icon,
+  ScreenContainer,
+  Touchable,
+  withTheme,
+} from '@draftbit/ui';
 import {
   Image,
   ScrollView,
@@ -287,6 +293,13 @@ const ProfilePayoutInformationScreen = props => {
           >
             {/* Button 2 */}
             <Button
+              onPress={() => {
+                try {
+                  navigation.navigate('ProfilePersonalInformationScreen');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
                   backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -449,7 +462,7 @@ const ProfilePayoutInformationScreen = props => {
           </View>
         </View>
       </ScrollView>
-      {/* Navigation bar */}
+      {/* Navigation Bar */}
       <View
         style={StyleSheet.applyWidth(
           { backgroundColor: 'rgb(255, 255, 255)' },
@@ -471,121 +484,156 @@ const ProfilePayoutInformationScreen = props => {
             dimensions.width
           )}
         >
-          {/* Nav button */}
-          <View
-            style={StyleSheet.applyWidth(
-              { alignItems: 'center', alignSelf: 'center', padding: 4 },
-              dimensions.width
-            )}
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.navigate('MyGamesScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
           >
-            <Icon
-              color={theme.colors['Grey600']}
-              name={'MaterialCommunityIcons/whistle-outline'}
-              size={24}
+            {/* Nav button */}
+            <View
               style={StyleSheet.applyWidth(
-                { marginBottom: 4 },
-                dimensions.width
-              )}
-            />
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                  color: theme.colors['Grey700'],
-                  fontFamily: 'Inter_500Medium',
-                  letterSpacing: 1.25,
-                }),
+                { alignItems: 'center', alignSelf: 'center', padding: 4 },
                 dimensions.width
               )}
             >
-              {'My Games'}
-            </Text>
-          </View>
-          {/* Nav button 2 */}
-          <View
-            style={StyleSheet.applyWidth(
-              { alignItems: 'center', alignSelf: 'center', padding: 4 },
-              dimensions.width
-            )}
-          >
-            <Icon
-              color={theme.colors['Grey600']}
-              name={'Feather/calendar'}
-              size={24}
+              <Icon
+                color={theme.colors['Grey600']}
+                name={'MaterialCommunityIcons/whistle-outline'}
+                size={24}
+                style={StyleSheet.applyWidth(
+                  { marginBottom: 4 },
+                  dimensions.width
+                )}
+              />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    color: theme.colors['Grey700'],
+                    fontFamily: 'Inter_500Medium',
+                    letterSpacing: 1.25,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'My Games'}
+              </Text>
+            </View>
+          </Touchable>
+          {/* Touchable 2 */}
+          <Touchable>
+            {/* Nav button 2 */}
+            <View
               style={StyleSheet.applyWidth(
-                { marginBottom: 4 },
-                dimensions.width
-              )}
-            />
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                  color: theme.colors['Grey700'],
-                  fontFamily: 'Inter_500Medium',
-                  letterSpacing: 1.25,
-                }),
-                dimensions.width
-              )}
-            >
-              {'Availability'}
-            </Text>
-          </View>
-          {/* Nav button 3 */}
-          <View
-            style={StyleSheet.applyWidth(
-              { alignItems: 'center', alignSelf: 'center', padding: 4 },
-              dimensions.width
-            )}
-          >
-            <Icon
-              color={theme.colors['Grey600']}
-              name={'MaterialIcons/attach-money'}
-              size={24}
-              style={StyleSheet.applyWidth(
-                { marginBottom: 4 },
-                dimensions.width
-              )}
-            />
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                  color: theme.colors['Grey700'],
-                  fontFamily: 'Inter_500Medium',
-                  letterSpacing: 1.25,
-                }),
+                { alignItems: 'center', alignSelf: 'center', padding: 4 },
                 dimensions.width
               )}
             >
-              {'Earnings'}
-            </Text>
-          </View>
-          {/* Avatar */}
-          <View
-            style={StyleSheet.applyWidth(
-              { height: 40, width: 40 },
-              dimensions.width
-            )}
+              <Icon
+                color={theme.colors['Grey600']}
+                name={'Feather/calendar'}
+                size={24}
+                style={StyleSheet.applyWidth(
+                  { marginBottom: 4 },
+                  dimensions.width
+                )}
+              />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    color: theme.colors['Grey700'],
+                    fontFamily: 'Inter_500Medium',
+                    letterSpacing: 1.25,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Availability'}
+              </Text>
+            </View>
+          </Touchable>
+          {/* Touchable 3 */}
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.navigate('EarningsScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
           >
-            <Image
-              resizeMode={'cover'}
-              source={Images.Avartar}
+            {/* Nav button 3 */}
+            <View
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'], {
-                  borderColor: theme.colors['Primary/Yellow400'],
-                  borderRadius: 100,
-                  borderWidth: 5,
-                  height: 40,
-                  width: 40,
-                }),
+                { alignItems: 'center', alignSelf: 'center', padding: 4 },
                 dimensions.width
               )}
-            />
-          </View>
+            >
+              <Icon
+                color={theme.colors['Grey600']}
+                name={'MaterialIcons/attach-money'}
+                size={24}
+                style={StyleSheet.applyWidth(
+                  { marginBottom: 4 },
+                  dimensions.width
+                )}
+              />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    color: theme.colors['Grey700'],
+                    fontFamily: 'Inter_500Medium',
+                    letterSpacing: 1.25,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Earnings'}
+              </Text>
+            </View>
+          </Touchable>
+          {/* Touchable Profile */}
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.navigate('ProfilePersonalInformationScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
+            {/* Avatar */}
+            <View
+              style={StyleSheet.applyWidth(
+                { height: 40, width: 40 },
+                dimensions.width
+              )}
+            >
+              <Image
+                resizeMode={'cover'}
+                source={Images.Avartar}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'], {
+                    borderColor: theme.colors['Primary/Yellow400'],
+                    borderRadius: 100,
+                    borderWidth: 4,
+                    height: 40,
+                    width: 40,
+                  }),
+                  dimensions.width
+                )}
+              />
+            </View>
+          </Touchable>
         </View>
       </View>
     </ScreenContainer>

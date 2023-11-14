@@ -87,6 +87,157 @@ export const FetchLoginPOST = ({
   return children({ loading, data, error, refetchLogin: refetch });
 };
 
+export const createAccountPOST = (Constants, _args, handlers = {}) =>
+  fetch(`https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/accounts`, {
+    body: JSON.stringify({}),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      apikey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useCreateAccountPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => createAccountPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('account', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('account');
+        queryClient.invalidateQueries('accounts');
+      },
+    }
+  );
+};
+
+export const FetchCreateAccountPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useCreateAccountPOST(
+    {},
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchCreateAccount: refetch });
+};
+
+export const createCustomerPOST = (
+  Constants,
+  { profile_id_body, stripe_cus_body, user_id_body },
+  handlers = {}
+) =>
+  fetch(`https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/customers`, {
+    body: JSON.stringify({
+      id: user_id_body,
+      stripe_customer_id: stripe_cus_body,
+      profile_id: profile_id_body,
+    }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['secret_role_key'],
+      'Content-Type': 'application/json',
+      apikey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useCreateCustomerPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      createCustomerPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('customer', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('customer');
+        queryClient.invalidateQueries('customers');
+      },
+    }
+  );
+};
+
+export const FetchCreateCustomerPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  profile_id_body,
+  stripe_cus_body,
+  user_id_body,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useCreateCustomerPOST(
+    { profile_id_body, stripe_cus_body, user_id_body },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchCreateCustomer: refetch });
+};
+
 export const getGamesAssignorGET = (Constants, { profile_id }, handlers = {}) =>
   fetch(
     `https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/games?select=${encodeURIComponent(
@@ -358,4 +509,62 @@ export const FetchRolesGET = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchRoles: refetch });
+};
+
+export const updateProfileAfterSignupPATCH = (
+  Constants,
+  { firstname_body, lastname_body, role_body, user_id },
+  handlers = {}
+) =>
+  fetch(
+    `https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/profiles?select=${encodeURIComponent(
+      `*`
+    )}&user_id=${encodeURIComponent(
+      `eq.${
+        typeof user_id === 'string' ? user_id : JSON.stringify(user_id ?? '')
+      }`
+    )}`,
+    {
+      body: JSON.stringify({
+        first_name: firstname_body,
+        last_name: lastname_body,
+        role_id: role_body,
+        birthdate: null,
+      }),
+      headers: {
+        Accept: 'application/json',
+        Authorization: Constants['secret_role_key'],
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+      },
+      method: 'PATCH',
+    }
+  ).then(res => handleResponse(res, handlers));
+
+export const useUpdateProfileAfterSignupPATCH = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      updateProfileAfterSignupPATCH(
+        Constants,
+        { ...initialArgs, ...args },
+        handlers
+      ),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('profile', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('profile');
+        queryClient.invalidateQueries('profiles');
+      },
+    }
+  );
 };

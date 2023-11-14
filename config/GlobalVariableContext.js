@@ -3,9 +3,14 @@ import { View, ActivityIndicator } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const DeviceVariables = { __env__: 'Development' };
+export const DeviceVariables = {
+  secret_role_key:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzYzMzI5MiwiZXhwIjoyMDEzMjA5MjkyfQ.uJfyMhYwDZ4kOYfAHB7aCQ7Cmze3TpoRR4Zd3h8F9GA',
+  __env__: 'Development',
+};
 export const AppVariables = {
   profile_id: '',
+  rene: false,
   role_id: '',
   supabaseAccessToken: 'Bearer ',
   user: {},

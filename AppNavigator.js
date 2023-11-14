@@ -8,11 +8,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import theme from './themes/Draftbit.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
+import AssignorHomeScreen from './screens/AssignorHomeScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import EarningsDetailsScreen from './screens/EarningsDetailsScreen';
 import EarningsScreen from './screens/EarningsScreen';
 import GameDetailsScreen from './screens/GameDetailsScreen';
 import LoginScreen from './screens/LoginScreen';
+import MyGamesScreen from './screens/MyGamesScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import ProfilePayoutInformationScreen from './screens/ProfilePayoutInformationScreen';
 import ProfilePersonalInformationScreen from './screens/ProfilePersonalInformationScreen';
@@ -141,6 +143,20 @@ export default function RootAppNavigator() {
           component={GameDetailsScreen}
           options={{
             title: 'Game Details',
+          }}
+        />
+        <Stack.Screen
+          name="MyGamesScreen"
+          component={MyGamesScreen}
+          options={{
+            title: 'My Games',
+          }}
+        />
+        <Stack.Screen
+          name="AssignorHomeScreen"
+          component={AssignorHomeScreen}
+          options={{
+            title: '[Assignor]Home',
           }}
         />
       </Stack.Navigator>

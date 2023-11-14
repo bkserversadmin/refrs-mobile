@@ -3,8 +3,6 @@ import React from 'react';
 const validateBaseString = (value, max_length) => {
   const isNotEmpty = value.length;
 
-  console.log('el value ===>', value, 'max_length ==>', max_length);
-
   if (isNotEmpty === 0) {
     return 'This field is required';
   }
