@@ -525,40 +525,6 @@ const ProfilePayoutInformationScreen = props => {
               </Text>
             </View>
           </Touchable>
-          {/* Touchable 2 */}
-          <Touchable>
-            {/* Nav button 2 */}
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'center', alignSelf: 'center', padding: 4 },
-                dimensions.width
-              )}
-            >
-              <Icon
-                color={theme.colors['Grey600']}
-                name={'Feather/calendar'}
-                size={24}
-                style={StyleSheet.applyWidth(
-                  { marginBottom: 4 },
-                  dimensions.width
-                )}
-              />
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                    color: theme.colors['Grey700'],
-                    fontFamily: 'Inter_500Medium',
-                    letterSpacing: 1.25,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Availability'}
-              </Text>
-            </View>
-          </Touchable>
           {/* Touchable 3 */}
           <Touchable
             onPress={() => {

@@ -8,9 +8,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import {
   Button,
   Icon,
-  IconButton,
   ScreenContainer,
-  TextInput,
   Touchable,
   withTheme,
 } from '@draftbit/ui';
@@ -23,12 +21,11 @@ import {
   useWindowDimensions,
 } from 'react-native';
 
-const MyGamesScreen = props => {
+const AssignorHomeCreatedGamesScreen = props => {
   const dimensions = useWindowDimensions();
   const { theme, navigation } = props;
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
 
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -65,7 +62,6 @@ const MyGamesScreen = props => {
     };
     handler();
   }, [isFocused]);
-  const [dsiplayModal, setDsiplayModal] = React.useState(false);
   const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
@@ -109,7 +105,7 @@ const MyGamesScreen = props => {
             dimensions.width
           )}
         >
-          {'Dashboard'}
+          {'My Games'}
         </Text>
 
         <Touchable
@@ -223,7 +219,7 @@ const MyGamesScreen = props => {
               dimensions.width
             )}
           >
-            {'Welcome John'}
+            {'Welcome Marvin'}
           </Text>
           <Button
             icon={'Feather/sliders'}
@@ -242,75 +238,60 @@ const MyGamesScreen = props => {
             title={'Filters'}
           />
         </View>
-        {/* Search */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              alignSelf: 'center',
-              backgroundColor: 'rgba(81, 71, 71, 0)',
-              flexDirection: 'row',
-              height: 64,
-              justifyContent: 'space-between',
-              paddingBottom: 12,
-              paddingLeft: 16,
-              paddingRight: 16,
-              paddingTop: 12,
-              width: '100%',
-            },
-            dimensions.width
-          )}
-        >
-          <TextInput
-            allowFontScaling={true}
-            autoCapitalize={'none'}
-            changeTextDelay={500}
-            onChangeText={newTextInputValue => {
-              const textInputValue = newTextInputValue;
-              try {
-                setTextInputValue(newTextInputValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            placeholder={'Enter a value...'}
+        {/* Tab buttons container */}
+        <View style={StyleSheet.applyWidth({ padding: 16 }, dimensions.width)}>
+          {/* Tab Buttons */}
+          <View
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.TextInputStyles(theme)['Text Input'],
-                {
-                  backgroundColor: 'rgb(255, 255, 255)',
-                  fontFamily: 'Inter_400Regular',
-                  letterSpacing: 0.25,
-                  paddingBottom: 15,
-                  paddingLeft: 12,
-                  paddingRight: 16,
-                  paddingTop: 15,
-                  width: '100%',
-                }
-              ),
-              dimensions.width
-            )}
-            value={textInputValue}
-          />
-        </View>
-        {/* Upcoming Games Content */}
-        <View>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                color: 'rgb(61, 61, 61)',
-                fontFamily: 'Inter_400Regular',
-                fontSize: 16,
-                letterSpacing: 0.15,
-                padding: 16,
-              }),
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                paddingBottom: 8,
+                paddingTop: 8,
+              },
               dimensions.width
             )}
           >
-            {'Upcoming Game Schedule'}
-          </Text>
+            <Button
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+                  backgroundColor: theme.colors['Primary/Yellow400'],
+                  color: theme.colors['Primary/Yellow900'],
+                  fontFamily: 'System',
+                  fontWeight: '400',
+                  letterSpacing: 0.25,
+                  marginRight: 16,
+                }),
+                dimensions.width
+              )}
+              title={'Your created games'}
+            />
+            {/* Button 2 */}
+            <Button
+              onPress={() => {
+                try {
+                  navigation.navigate('AssignorHomeRefereeVacanciesScreen');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  color: theme.colors['Grey600'],
+                  fontFamily: 'System',
+                  fontWeight: '400',
+                  letterSpacing: 0.25,
+                }),
+                dimensions.width
+              )}
+              title={'With referee vacancies'}
+            />
+          </View>
+        </View>
+        {/* Upcoming Games Content */}
+        <View>
           {/* Container */}
           <View
             style={StyleSheet.applyWidth(
@@ -323,7 +304,7 @@ const MyGamesScreen = props => {
               dimensions.width
             )}
           >
-            {/* GameCard */}
+            {/* AssignorGameCardActive */}
             <View
               style={StyleSheet.applyWidth(
                 {
@@ -361,7 +342,7 @@ const MyGamesScreen = props => {
                     dimensions.width
                   )}
                 >
-                  {'Linden Vs Pershing'}
+                  {'MPLS Tournament Game'}
                 </Text>
 
                 <View
@@ -396,7 +377,7 @@ const MyGamesScreen = props => {
                       {'#231'}
                     </Text>
                   </View>
-                  <Icon name={'Entypo/dots-three-vertical'} size={24} />
+                  <Icon name={'Entypo/dots-three-vertical'} size={20} />
                 </View>
               </View>
               {/* Row */}
@@ -432,12 +413,13 @@ const MyGamesScreen = props => {
                           color: 'rgb(0, 61, 61)',
                           fontFamily: 'Inter_600SemiBold',
                           fontSize: 12,
+                          letterSpacing: 1.5,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'#231'}
+                    {'12U'}
                   </Text>
                 </View>
                 {/* Date */}
@@ -449,7 +431,7 @@ const MyGamesScreen = props => {
                 >
                   <Icon
                     name={'MaterialCommunityIcons/calendar-blank'}
-                    size={24}
+                    size={14}
                     style={StyleSheet.applyWidth(
                       { backgroundColor: 'rgba(39, 31, 1, 0)', marginRight: 8 },
                       dimensions.width
@@ -483,7 +465,7 @@ const MyGamesScreen = props => {
                 >
                   <Icon
                     name={'Ionicons/location-sharp'}
-                    size={24}
+                    size={14}
                     style={StyleSheet.applyWidth(
                       { backgroundColor: 'rgba(39, 31, 1, 0)', marginRight: 8 },
                       dimensions.width
@@ -508,7 +490,7 @@ const MyGamesScreen = props => {
                     {'PP'}
                   </Text>
                 </View>
-                {/* Price */}
+                {/* Number */}
                 <View
                   style={StyleSheet.applyWidth(
                     { alignItems: 'center', flexDirection: 'row' },
@@ -522,27 +504,33 @@ const MyGamesScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['Text'],
                         {
-                          color: 'rgb(39, 31, 1)',
-                          fontFamily: 'Inter_700Bold',
+                          color: theme.colors['System/Error700'],
+                          fontFamily: 'Inter_400Regular',
                           fontSize: 12,
                           letterSpacing: 0.4,
+                          marginRight: 4,
                           paddingLeft: 16,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'$35'}
+                    {'2/3'}
                   </Text>
+                  <Icon
+                    color={theme.colors['System/Error700']}
+                    name={'AntDesign/exclamationcircle'}
+                    size={14}
+                  />
                 </View>
               </View>
             </View>
-            {/* GameCardWhite */}
+            {/* AssignorGameCardActive 2 */}
             <View
               style={StyleSheet.applyWidth(
                 {
-                  backgroundColor: 'rgb(255, 255, 255)',
-                  borderColor: 'rgb(235, 235, 235)',
+                  backgroundColor: 'rgb(253, 241, 196)',
+                  borderColor: 'rgb(248, 211, 71)',
                   borderRadius: 8,
                   borderWidth: 1,
                   marginBottom: 8,
@@ -575,7 +563,7 @@ const MyGamesScreen = props => {
                     dimensions.width
                   )}
                 >
-                  {'Linden Vs Pershing'}
+                  {'MPLS Tournament Game'}
                 </Text>
 
                 <View
@@ -610,7 +598,7 @@ const MyGamesScreen = props => {
                       {'#231'}
                     </Text>
                   </View>
-                  <Icon name={'Entypo/dots-three-vertical'} size={24} />
+                  <Icon name={'Entypo/dots-three-vertical'} size={20} />
                 </View>
               </View>
               {/* Row */}
@@ -646,12 +634,13 @@ const MyGamesScreen = props => {
                           color: 'rgb(0, 61, 61)',
                           fontFamily: 'Inter_600SemiBold',
                           fontSize: 12,
+                          letterSpacing: 1.5,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'#231'}
+                    {'12U'}
                   </Text>
                 </View>
                 {/* Date */}
@@ -663,7 +652,7 @@ const MyGamesScreen = props => {
                 >
                   <Icon
                     name={'MaterialCommunityIcons/calendar-blank'}
-                    size={24}
+                    size={14}
                     style={StyleSheet.applyWidth(
                       { backgroundColor: 'rgba(39, 31, 1, 0)', marginRight: 8 },
                       dimensions.width
@@ -697,7 +686,7 @@ const MyGamesScreen = props => {
                 >
                   <Icon
                     name={'Ionicons/location-sharp'}
-                    size={24}
+                    size={14}
                     style={StyleSheet.applyWidth(
                       { backgroundColor: 'rgba(39, 31, 1, 0)', marginRight: 8 },
                       dimensions.width
@@ -722,7 +711,7 @@ const MyGamesScreen = props => {
                     {'PP'}
                   </Text>
                 </View>
-                {/* Price */}
+                {/* Number */}
                 <View
                   style={StyleSheet.applyWidth(
                     { alignItems: 'center', flexDirection: 'row' },
@@ -736,27 +725,33 @@ const MyGamesScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['Text'],
                         {
-                          color: 'rgb(39, 31, 1)',
-                          fontFamily: 'Inter_700Bold',
+                          color: theme.colors['System/Error700'],
+                          fontFamily: 'Inter_400Regular',
                           fontSize: 12,
                           letterSpacing: 0.4,
+                          marginRight: 4,
                           paddingLeft: 16,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'$35'}
+                    {'2/3'}
                   </Text>
+                  <Icon
+                    color={theme.colors['System/Error700']}
+                    name={'AntDesign/exclamationcircle'}
+                    size={14}
+                  />
                 </View>
               </View>
             </View>
-            {/* GameCardWhite 2 */}
+            {/* AssignorGameCardDefault */}
             <View
               style={StyleSheet.applyWidth(
                 {
                   backgroundColor: 'rgb(255, 255, 255)',
-                  borderColor: 'rgb(235, 235, 235)',
+                  borderColor: theme.colors['Grey300'],
                   borderRadius: 8,
                   borderWidth: 1,
                   marginBottom: 8,
@@ -789,7 +784,7 @@ const MyGamesScreen = props => {
                     dimensions.width
                   )}
                 >
-                  {'Linden Vs Pershing'}
+                  {'Lakers vs Bulls'}
                 </Text>
 
                 <View
@@ -824,7 +819,7 @@ const MyGamesScreen = props => {
                       {'#231'}
                     </Text>
                   </View>
-                  <Icon name={'Entypo/dots-three-vertical'} size={24} />
+                  <Icon name={'Entypo/dots-three-vertical'} size={20} />
                 </View>
               </View>
               {/* Row */}
@@ -860,12 +855,13 @@ const MyGamesScreen = props => {
                           color: 'rgb(0, 61, 61)',
                           fontFamily: 'Inter_600SemiBold',
                           fontSize: 12,
+                          letterSpacing: 1.5,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'#231'}
+                    {'12U'}
                   </Text>
                 </View>
                 {/* Date */}
@@ -877,7 +873,7 @@ const MyGamesScreen = props => {
                 >
                   <Icon
                     name={'MaterialCommunityIcons/calendar-blank'}
-                    size={24}
+                    size={14}
                     style={StyleSheet.applyWidth(
                       { backgroundColor: 'rgba(39, 31, 1, 0)', marginRight: 8 },
                       dimensions.width
@@ -911,7 +907,7 @@ const MyGamesScreen = props => {
                 >
                   <Icon
                     name={'Ionicons/location-sharp'}
-                    size={24}
+                    size={14}
                     style={StyleSheet.applyWidth(
                       { backgroundColor: 'rgba(39, 31, 1, 0)', marginRight: 8 },
                       dimensions.width
@@ -936,7 +932,7 @@ const MyGamesScreen = props => {
                     {'PP'}
                   </Text>
                 </View>
-                {/* Price */}
+                {/* Number */}
                 <View
                   style={StyleSheet.applyWidth(
                     { alignItems: 'center', flexDirection: 'row' },
@@ -950,18 +946,245 @@ const MyGamesScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['Text'],
                         {
-                          color: 'rgb(39, 31, 1)',
-                          fontFamily: 'Inter_700Bold',
+                          color: theme.colors['System/Error700'],
+                          fontFamily: 'Inter_400Regular',
                           fontSize: 12,
                           letterSpacing: 0.4,
+                          marginRight: 4,
                           paddingLeft: 16,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'$35'}
+                    {'2/3'}
                   </Text>
+                  <Icon
+                    color={theme.colors['System/Error700']}
+                    name={'AntDesign/exclamationcircle'}
+                    size={14}
+                  />
+                </View>
+              </View>
+            </View>
+            {/* AssignorGameCardDefault 2 */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  backgroundColor: 'rgb(255, 255, 255)',
+                  borderColor: theme.colors['Grey300'],
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  marginBottom: 8,
+                  padding: 15,
+                },
+                dimensions.width
+              )}
+            >
+              {/* Row */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginBottom: 12,
+                  },
+                  dimensions.width
+                )}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                      fontFamily: 'Inter_500Medium',
+                      fontSize: 16,
+                      letterSpacing: 0.2,
+                    }),
+                    dimensions.width
+                  )}
+                >
+                  {'Lakers vs Bulls'}
+                </Text>
+
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flexDirection: 'row' },
+                    dimensions.width
+                  )}
+                >
+                  {/* Number */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        backgroundColor: 'rgb(245, 245, 245)',
+                        borderRadius: 8,
+                        marginRight: 16,
+                        padding: 8,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          { fontFamily: 'Inter_600SemiBold', fontSize: 10 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'#231'}
+                    </Text>
+                  </View>
+                  <Icon name={'Entypo/dots-three-vertical'} size={20} />
+                </View>
+              </View>
+              {/* Row */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Value */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: 'rgb(235, 255, 255)',
+                      borderRadius: 8,
+                      marginRight: 16,
+                      padding: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          color: 'rgb(0, 61, 61)',
+                          fontFamily: 'Inter_600SemiBold',
+                          fontSize: 12,
+                          letterSpacing: 1.5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'12U'}
+                  </Text>
+                </View>
+                {/* Date */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flexDirection: 'row' },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    name={'MaterialCommunityIcons/calendar-blank'}
+                    size={14}
+                    style={StyleSheet.applyWidth(
+                      { backgroundColor: 'rgba(39, 31, 1, 0)', marginRight: 8 },
+                      dimensions.width
+                    )}
+                  />
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          color: 'rgb(39, 31, 1)',
+                          fontFamily: 'Inter_400Regular',
+                          fontSize: 12,
+                          letterSpacing: 0.4,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'May 8th - 8:00 PM '}
+                  </Text>
+                </View>
+                {/* Location */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flexDirection: 'row' },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    name={'Ionicons/location-sharp'}
+                    size={14}
+                    style={StyleSheet.applyWidth(
+                      { backgroundColor: 'rgba(39, 31, 1, 0)', marginRight: 8 },
+                      dimensions.width
+                    )}
+                  />
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          color: 'rgb(39, 31, 1)',
+                          fontFamily: 'Inter_400Regular',
+                          fontSize: 12,
+                          letterSpacing: 0.4,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'PP'}
+                  </Text>
+                </View>
+                {/* Number */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flexDirection: 'row' },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          color: theme.colors['Success500'],
+                          fontFamily: 'Inter_400Regular',
+                          fontSize: 12,
+                          letterSpacing: 0.4,
+                          marginRight: 4,
+                          paddingLeft: 16,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'3/3'}
+                  </Text>
+                  <Icon
+                    color={theme.colors['Success500']}
+                    name={'AntDesign/checkcircle'}
+                    size={14}
+                  />
                 </View>
               </View>
             </View>
@@ -990,22 +1213,25 @@ const MyGamesScreen = props => {
             dimensions.width
           )}
         >
-          <Touchable>
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.navigate('MyGamesScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
             {/* Nav button */}
             <View
               style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  backgroundColor: theme.colors['Primary/Yellow400'],
-                  padding: 4,
-                },
+                { alignItems: 'center', alignSelf: 'center', padding: 4 },
                 dimensions.width
               )}
             >
               <Icon
-                color={theme.colors['Primary/Yellow900']}
-                name={'MaterialCommunityIcons/whistle'}
+                color={theme.colors['Grey600']}
+                name={'MaterialCommunityIcons/whistle-outline'}
                 size={24}
                 style={StyleSheet.applyWidth(
                   { marginBottom: 4 },
@@ -1017,7 +1243,7 @@ const MyGamesScreen = props => {
                 allowFontScaling={true}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                    color: theme.colors['Primary/Yellow900'],
+                    color: theme.colors['Grey700'],
                     fontFamily: 'Inter_500Medium',
                     letterSpacing: 1.25,
                   }),
@@ -1025,6 +1251,40 @@ const MyGamesScreen = props => {
                 )}
               >
                 {'My Games'}
+              </Text>
+            </View>
+          </Touchable>
+          {/* Touchable 2 */}
+          <Touchable>
+            {/* Nav button 2 */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', alignSelf: 'center', padding: 4 },
+                dimensions.width
+              )}
+            >
+              <Icon
+                color={theme.colors['Grey600']}
+                name={'Feather/users'}
+                size={24}
+                style={StyleSheet.applyWidth(
+                  { marginBottom: 4 },
+                  dimensions.width
+                )}
+              />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    color: theme.colors['Grey700'],
+                    fontFamily: 'Inter_500Medium',
+                    letterSpacing: 1.25,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Referees'}
               </Text>
             </View>
           </Touchable>
@@ -1102,214 +1362,8 @@ const MyGamesScreen = props => {
           </Touchable>
         </View>
       </View>
-      {/* Filter Game Modal */}
-      <>
-        {!Constants['visible'] ? null : (
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                backgroundColor: 'rgb(255, 255, 255)',
-                borderRadius: 24,
-                padding: 24,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Row */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  backgroundColor: 'rgb(255, 255, 255)',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginBottom: 32,
-                },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                    color: theme.colors['Grey600'],
-                    fontFamily: 'Inter_400Regular',
-                    fontSize: 16,
-                    letterSpacing: 0.25,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Filter games'}
-              </Text>
-              <>
-                {false ? null : (
-                  <IconButton
-                    color={theme.colors['Grey600']}
-                    disabled={Constants['visible']}
-                    icon={'AntDesign/close'}
-                    size={20}
-                  />
-                )}
-              </>
-            </View>
-
-            <View>
-              {/* form_control */}
-              <View
-                style={StyleSheet.applyWidth(
-                  { marginBottom: 24, width: '100%' },
-                  dimensions.width
-                )}
-              >
-                {/* Text 3 */}
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      color: 'rgb(92, 92, 92)',
-                      fontFamily: 'Inter_500Medium',
-                      fontSize: 10,
-                      letterSpacing: 1.5,
-                      marginBottom: 8,
-                      paddingLeft: 16,
-                      textTransform: 'uppercase',
-                    }),
-                    dimensions.width
-                  )}
-                >
-                  {'first name'}
-                </Text>
-                {/* first_name_input */}
-                <TextInput
-                  allowFontScaling={true}
-                  autoCapitalize={'none'}
-                  changeTextDelay={500}
-                  placeholder={'first name'}
-                  placeholderTextColor={theme.colors['Light']}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextInputStyles(theme)['Text Input'],
-                      {
-                        backgroundColor: 'rgb(245, 245, 245)',
-                        color: 'rgb(122, 122, 122)',
-                        fontFamily: 'Inter_400Regular',
-                        fontSize: 16,
-                        paddingBottom: 20,
-                        paddingLeft: 16,
-                        paddingRight: 16,
-                        paddingTop: 20,
-                        textTransform: 'none',
-                        width: '100%',
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                />
-                {/* error firstname text */}
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      color: theme.colors['System/Error500'],
-                    }),
-                    dimensions.width
-                  )}
-                >
-                  {null}
-                </Text>
-              </View>
-            </View>
-            {/* Primary button */}
-            <Button
-              onPress={() => {
-                const handler = async () => {
-                  console.log('Primary button ON_PRESS Start');
-                  let error = null;
-                  try {
-                    console.log('Start ON_PRESS:0 FETCH_REQUEST');
-                    const loginResponse = (
-                      await SupabaseStagingApi.loginPOST(Constants, {})
-                    )?.json;
-                    console.log('Complete ON_PRESS:0 FETCH_REQUEST', {
-                      loginResponse,
-                    });
-                    console.log('Start ON_PRESS:1 EXTRACT_KEY');
-                    const accessToken = loginResponse?.access_token;
-                    console.log('Complete ON_PRESS:1 EXTRACT_KEY', {
-                      accessToken,
-                    });
-                    console.log('Start ON_PRESS:2 IF');
-                    if (accessToken) {
-                      setGlobalVariableValue({
-                        key: 'supabaseAccessToken',
-                        value: accessToken + accessToken,
-                      });
-                      const user_id = loginResponse?.user.id;
-                      setGlobalVariableValue({
-                        key: 'user',
-                        value: user_id,
-                      });
-                      const getSessionProfile = (
-                        await SupabaseStagingApi.getProfileSessionGET(
-                          Constants,
-                          { user: user_id }
-                        )
-                      )?.json;
-                      const profileObject = getSessionProfile?.[0];
-                      const profileObjectVariable = setGlobalVariableValue({
-                        key: 'user_session',
-                        value: profileObject,
-                      });
-                      const role_id_extracted = profileObject?.roles.id;
-                      setGlobalVariableValue({
-                        key: 'role_id',
-                        value: role_id_extracted,
-                      });
-                      const profile_id_extracted = profileObject?.id;
-                      setGlobalVariableValue({
-                        key: 'profile_id',
-                        value: profile_id_extracted,
-                      });
-                      navigation.navigate('DashboardScreen');
-                    } else {
-                      const extractedMeesageError =
-                        loginResponse?.error_description;
-                    }
-                    console.log('Complete ON_PRESS:2 IF');
-                  } catch (err) {
-                    console.error(err);
-                    error = err.message ?? err;
-                  }
-                  console.log(
-                    'Primary button ON_PRESS Complete',
-                    error ? { error } : 'no error'
-                  );
-                };
-                handler();
-              }}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
-                  backgroundColor: 'rgb(248, 211, 71)',
-                  borderRadius: 100,
-                  color: 'rgb(39, 31, 1)',
-                  fontFamily: 'Inter_500Medium',
-                  fontSize: 16,
-                  letterSpacing: 1.25,
-                  width: '100%',
-                }),
-                dimensions.width
-              )}
-              title={'Confirm'}
-            />
-          </View>
-        )}
-      </>
     </ScreenContainer>
   );
 };
 
-export default withTheme(MyGamesScreen);
+export default withTheme(AssignorHomeCreatedGamesScreen);

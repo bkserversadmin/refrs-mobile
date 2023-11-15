@@ -8,7 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import theme from './themes/Draftbit.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
-import AssignorHomeScreen from './screens/AssignorHomeScreen';
+import AssignorHomeCreatedGamesScreen from './screens/AssignorHomeCreatedGamesScreen';
+import AssignorHomeRefereeVacanciesScreen from './screens/AssignorHomeRefereeVacanciesScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import EarningsDetailsScreen from './screens/EarningsDetailsScreen';
 import EarningsScreen from './screens/EarningsScreen';
@@ -153,10 +154,17 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="AssignorHomeScreen"
-          component={AssignorHomeScreen}
+          name="AssignorHomeCreatedGamesScreen"
+          component={AssignorHomeCreatedGamesScreen}
           options={{
-            title: '[Assignor]Home',
+            title: '[Assignor]Home - Created games',
+          }}
+        />
+        <Stack.Screen
+          name="AssignorHomeRefereeVacanciesScreen"
+          component={AssignorHomeRefereeVacanciesScreen}
+          options={{
+            title: '[Assignor]Home - Referee vacancies',
           }}
         />
       </Stack.Navigator>

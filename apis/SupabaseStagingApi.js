@@ -87,11 +87,20 @@ export const FetchLoginPOST = ({
   return children({ loading, data, error, refetchLogin: refetch });
 };
 
-export const createAccountPOST = (Constants, _args, handlers = {}) =>
+export const createAccountPOST = (
+  Constants,
+  { account_id_boddy, profile_id_boddy, user_id_body },
+  handlers = {}
+) =>
   fetch(`https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/accounts`, {
-    body: JSON.stringify({}),
+    body: JSON.stringify({
+      user_id: user_id_body,
+      profile_id: profile_id_boddy,
+      account_id: account_id_boddy,
+    }),
     headers: {
       Accept: 'application/json',
+      Authorization: Constants['secret_role_key'],
       'Content-Type': 'application/json',
       apikey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
@@ -126,6 +135,9 @@ export const FetchCreateAccountPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  account_id_boddy,
+  profile_id_boddy,
+  user_id_body,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -137,7 +149,7 @@ export const FetchCreateAccountPOST = ({
     error,
     mutate: refetch,
   } = useCreateAccountPOST(
-    {},
+    { account_id_boddy, profile_id_boddy, user_id_body },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -309,6 +321,87 @@ export const FetchGetGamesAssignorGET = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchGetGamesAssignor: refetch });
+};
+
+export const getProfileIdForSignupGET = (
+  Constants,
+  { user_id_input },
+  handlers = {}
+) =>
+  fetch(
+    `https://qrvcspozklogjrnrrohd.supabase.co/rest/v1/profiles?select=id&user_id=${encodeURIComponent(
+      `eq.${
+        typeof user_id_input === 'string'
+          ? user_id_input
+          : JSON.stringify(user_id_input ?? '')
+      }`
+    )}`,
+    {
+      headers: {
+        Accept: 'application/json',
+        Autorization: Constants['secret_role_key'],
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFydmNzcG96a2xvZ2pybnJyb2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzMyOTIsImV4cCI6MjAxMzIwOTI5Mn0.5NDd9T3h7-178wVR4B6sUQj5x8gttxGyRvnwV0IEezc',
+      },
+    }
+  ).then(res => handleResponse(res, handlers));
+
+export const useGetProfileIdForSignupGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  const queryClient = useQueryClient();
+  return useQuery(
+    ['profile', args],
+    () => getProfileIdForSignupGET(Constants, args, handlers),
+    {
+      refetchInterval,
+      onSuccess: () => queryClient.invalidateQueries(['profiles']),
+    }
+  );
+};
+
+export const FetchGetProfileIdForSignupGET = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  user_id_input,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    refetch,
+  } = useGetProfileIdForSignupGET(
+    { user_id_input },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({
+    loading,
+    data,
+    error,
+    refetchGetProfileIdForSignup: refetch,
+  });
 };
 
 export const getProfileSessionGET = (Constants, { user }, handlers = {}) =>

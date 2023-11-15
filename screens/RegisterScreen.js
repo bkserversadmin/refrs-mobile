@@ -1,7 +1,9 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as PlatformStripeApi from '../apis/PlatformStripeApi.js';
 import * as SupabaseStagingApi from '../apis/SupabaseStagingApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import constructFullName from '../global-functions/constructFullName';
 import dropdownOptionsAdapter from '../global-functions/dropdownOptionsAdapter';
 import passwordValMessage from '../global-functions/passwordValMessage';
 import passwordsMatch from '../global-functions/passwordsMatch';
@@ -86,6 +88,40 @@ const RegisterScreen = props => {
 
     return true;
   };
+
+  // validates if role is an assignor, will return true if succeeded
+  const isAssignor = role_id => {
+    if (role_id === 1) {
+      return true;
+    }
+
+    return false;
+  };
+
+  // validates if role is a referee, will return true if succeeded
+  const isReferee = role_id => {
+    if (role_id === 3) {
+      return true;
+    }
+
+    return false;
+  };
+
+  // validates if role is a sport organization, will return true if succeeded
+  const isOrganization = role_id => {
+    if (role_id === 2) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const supabaseStagingUpdateProfileAfterSignupPATCH =
+    SupabaseStagingApi.useUpdateProfileAfterSignupPATCH();
+  const supabaseStagingCreateCustomerPOST =
+    SupabaseStagingApi.useCreateCustomerPOST();
+  const platformStripeCreateCustomerPOST =
+    PlatformStripeApi.useCreateCustomerPOST();
 
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -737,51 +773,137 @@ const RegisterScreen = props => {
                   disabled={parseBoolean(is_submitting)}
                   loading={parseBoolean(is_submitting)}
                   onPress={() => {
-                    try {
-                      setIs_submitting(true);
-                      const validate_email_result =
-                        validateEmail(email_variable);
-                      setEmail_error_var(parseBoolean(validate_email_result));
-                      const firstname_val_response = validateBaseString(
-                        first_name_variable,
-                        parseInt(16, 10)
-                      );
-                      setFirstname_error_var(firstname_val_response);
-                      const roles_val_result = validateSelect(
-                        type_account_variable
-                      );
-                      setTypeaccount_error_var(roles_val_result);
-                      const lastname_val_result = validateBaseString(
-                        last_name_variable,
-                        16
-                      );
-                      setLastname_error_var(lastname_val_result);
-                      const password_mess_error_result =
-                        passwordValMessage(password_variable);
-                      setPassword_error_var(password_mess_error_result);
-                      const match_val_result = passwordsMatch(
-                        password_variable,
-                        confirm_password_variable
-                      );
-                      setConfirm_error_var(match_val_result);
-                      const signup_form_val = validateRegisterForm(
-                        email_error_var,
-                        password_mess_error_result,
-                        firstname_error_var,
-                        lastname_error_var,
-                        typeaccount_error_var,
-                        confirm_error_var
-                      );
-                      if (signup_form_val) {
-                        console.log(signup_form_val, 'si hago el request');
-                      } else {
-                        console.log('dio error algo');
-                      }
+                    const handler = async () => {
+                      try {
+                        setIs_submitting(true);
+                        const validate_email_result =
+                          validateEmail(email_variable);
+                        setEmail_error_var(parseBoolean(validate_email_result));
+                        const firstname_val_response = validateBaseString(
+                          first_name_variable,
+                          parseInt(16, 10)
+                        );
+                        setFirstname_error_var(firstname_val_response);
+                        const roles_val_result = validateSelect(
+                          type_account_variable
+                        );
+                        setTypeaccount_error_var(roles_val_result);
+                        const lastname_val_result = validateBaseString(
+                          last_name_variable,
+                          16
+                        );
+                        setLastname_error_var(lastname_val_result);
+                        const password_mess_error_result =
+                          passwordValMessage(password_variable);
+                        setPassword_error_var(password_mess_error_result);
+                        const match_val_result = passwordsMatch(
+                          password_variable,
+                          confirm_password_variable
+                        );
+                        setConfirm_error_var(match_val_result);
+                        const signup_form_val = validateRegisterForm(
+                          email_error_var,
+                          password_mess_error_result,
+                          firstname_error_var,
+                          lastname_error_var,
+                          typeaccount_error_var,
+                          confirm_error_var
+                        );
+                        if (signup_form_val) {
+                          console.log(signup_form_val, 'si hago el request');
+                          const register_result = (
+                            await SupabaseStagingApi.registerPOST(Constants, {
+                              email_body_variable:
+                                email_variable?.toLowerCase(),
+                              password_body_variable: password_variable,
+                            })
+                          )?.json;
+                          const extracted_user_id = (() => {
+                            if (register_result) {
+                              return register_result?.id;
+                            }
+                          })();
+                          console.log(
+                            'DESPUES DEL REGISTER REQUEST ====>',
+                            extracted_user_id
+                          );
+                          if (extracted_user_id) {
+                            const update_profile_result = (
+                              await supabaseStagingUpdateProfileAfterSignupPATCH.mutateAsync(
+                                {
+                                  firstname_body: first_name_variable,
+                                  lastname_body: last_name_variable,
+                                  role_body: 1,
+                                  user_id: extracted_user_id,
+                                }
+                              )
+                            )?.json;
+                            const full_name_result = constructFullName(
+                              first_name_variable,
+                              last_name_variable
+                            );
+                            console.log(
+                              'RESULTADO DEL UPDATE PROFILE AFTER SIGNUP',
+                              update_profile_result
+                            );
+                            const is_organization_result = isOrganization(
+                              parseInt(type_account_variable, 10)
+                            );
+                            if (is_organization_result) {
+                              console.log('ES UNA ORGANIZACION');
+                              const customer_stripe_result = (
+                                await platformStripeCreateCustomerPOST.mutateAsync(
+                                  {
+                                    desc_customer_body:
+                                      full_name_result +
+                                      ' (Sport Organization)',
+                                    email_customer_body: email_variable,
+                                    name_customer_body: full_name_result,
+                                  }
+                                )
+                              )?.json;
+                              console.log(
+                                'EL REQUEST CUSTOMER STRIPE',
+                                customer_stripe_result
+                              );
+                              const extracted_customer_id =
+                                customer_stripe_result?.customer.id;
+                              const profile_id_response = (
+                                await SupabaseStagingApi.getProfileIdForSignupGET(
+                                  Constants,
+                                  { user_id_input: extracted_user_id }
+                                )
+                              )?.json;
+                              const extracted_profile_id =
+                                profile_id_response?.[0].id;
+                              if (extracted_customer_id) {
+                                const supabase_customer_result = (
+                                  await supabaseStagingCreateCustomerPOST.mutateAsync(
+                                    {
+                                      profile_id_body: extracted_profile_id,
+                                      stripe_cus_body: extracted_customer_id,
+                                      user_id_body: extracted_user_id,
+                                    }
+                                  )
+                                )?.json;
+                              } else {
+                              }
+                            } else {
+                              console.log('NO ES UNA ORGANIZACION');
+                            }
+                          } else {
+                            console.log('FALLO EL EXTRACTED USER ID');
+                          }
+                        } else {
+                          console.log('dio error algo');
+                        }
 
-                      setIs_submitting(false);
-                    } catch (err) {
-                      console.error(err);
-                    }
+                        setIs_submitting(false);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    };
+                    handler();
                   }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(

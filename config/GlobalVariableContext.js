@@ -10,11 +10,11 @@ export const DeviceVariables = {
 };
 export const AppVariables = {
   profile_id: '',
-  rene: false,
   role_id: '',
   supabaseAccessToken: 'Bearer ',
   user: {},
   user_session: {},
+  visible: false,
 };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
