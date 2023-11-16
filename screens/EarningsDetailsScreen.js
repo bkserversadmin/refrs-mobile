@@ -7,7 +7,6 @@ import * as StyleSheet from '../utils/StyleSheet';
 import { Icon, ScreenContainer, Touchable, withTheme } from '@draftbit/ui';
 import {
   Image,
-  Modal,
   ScrollView,
   Text,
   View,
@@ -144,97 +143,617 @@ const EarningsDetailsScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         {/* Week earnings details */}
+        <>
+          {Constants['visible'] ? null : (
+            <View>
+              {/* Ttile */}
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    color: theme.colors['Grey600'],
+                    fontFamily: 'Inter_400Regular',
+                    fontSize: 12,
+                    letterSpacing: 1.5,
+                    marginBottom: 16,
+                    marginTop: 24,
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    textTransform: 'uppercase',
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Weeks earnings details'}
+              </Text>
+              {/* Card Container */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    backgroundColor: 'rgb(255, 255, 255)',
+                    borderRadius: 16,
+                    marginLeft: 20,
+                    marginRight: 20,
+                    padding: 12,
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Game item */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderColor: theme.colors['Grey300'],
+                      borderWidth: 1,
+                      marginBottom: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Row */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        borderColor: theme.colors['Grey300'],
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: 8,
+                        paddingBottom: 24,
+                        paddingLeft: 16,
+                        paddingRight: 16,
+                        paddingTop: 24,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Grey800'],
+                            fontFamily: 'Inter_700Bold',
+                            fontSize: 16,
+                            letterSpacing: 0.2,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'MPLS Tournament Game'}
+                    </Text>
+                    {/* Price and arrow */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'center', flexDirection: 'row' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text 3 */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            {
+                              color: theme.colors['Primary/Yellow800'],
+                              fontFamily: 'Inter_700Bold',
+                              fontSize: 16,
+                              letterSpacing: 0.2,
+                              marginRight: 24,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'$76'}
+                      </Text>
+                      <Icon
+                        color={theme.colors['Grey900']}
+                        name={'Entypo/dots-three-vertical'}
+                        size={20}
+                        style={StyleSheet.applyWidth(
+                          { height: 20, width: 20 },
+                          dimensions.width
+                        )}
+                      />
+                      <Touchable
+                        onPress={() => {
+                          try {
+                            setTest(true);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                      />
+                    </View>
+                  </View>
+                </View>
+                {/* Game item 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderColor: theme.colors['Grey300'],
+                      borderWidth: 1,
+                      marginBottom: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Row */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        borderColor: theme.colors['Grey300'],
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: 8,
+                        paddingBottom: 24,
+                        paddingLeft: 16,
+                        paddingRight: 16,
+                        paddingTop: 24,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Grey800'],
+                            fontFamily: 'Inter_700Bold',
+                            fontSize: 16,
+                            letterSpacing: 0.2,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'MPLS Tournament Game'}
+                    </Text>
+                    {/* Price and arrow */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'center', flexDirection: 'row' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text 3 */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            {
+                              color: theme.colors['Primary/Yellow800'],
+                              fontFamily: 'Inter_700Bold',
+                              fontSize: 16,
+                              letterSpacing: 0.2,
+                              marginRight: 24,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'$76'}
+                      </Text>
+                      <Icon
+                        color={theme.colors['Grey900']}
+                        name={'Entypo/dots-three-vertical'}
+                        size={20}
+                        style={StyleSheet.applyWidth(
+                          { height: 20, width: 20 },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                  </View>
+                </View>
+                {/* Game item 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderColor: theme.colors['Grey300'],
+                      borderWidth: 1,
+                      marginBottom: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Row */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        borderColor: theme.colors['Grey300'],
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: 8,
+                        paddingBottom: 24,
+                        paddingLeft: 16,
+                        paddingRight: 16,
+                        paddingTop: 24,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Grey800'],
+                            fontFamily: 'Inter_700Bold',
+                            fontSize: 16,
+                            letterSpacing: 0.2,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'MPLS Tournament Game'}
+                    </Text>
+                    {/* Price and arrow */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'center', flexDirection: 'row' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text 3 */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            {
+                              color: theme.colors['Primary/Yellow800'],
+                              fontFamily: 'Inter_700Bold',
+                              fontSize: 16,
+                              letterSpacing: 0.2,
+                              marginRight: 24,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'$76'}
+                      </Text>
+                      <Icon
+                        color={theme.colors['Grey900']}
+                        name={'Entypo/dots-three-vertical'}
+                        size={20}
+                        style={StyleSheet.applyWidth(
+                          { height: 20, width: 20 },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                  </View>
+                </View>
+                {/* Game item 4 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderColor: theme.colors['Grey300'],
+                      borderWidth: 1,
+                      marginBottom: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Row */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        borderColor: theme.colors['Grey300'],
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: 8,
+                        paddingBottom: 24,
+                        paddingLeft: 16,
+                        paddingRight: 16,
+                        paddingTop: 24,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Grey800'],
+                            fontFamily: 'Inter_700Bold',
+                            fontSize: 16,
+                            letterSpacing: 0.2,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'MPLS Tournament Game'}
+                    </Text>
+                    {/* Price and arrow */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'center', flexDirection: 'row' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text 3 */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            {
+                              color: theme.colors['Primary/Yellow800'],
+                              fontFamily: 'Inter_700Bold',
+                              fontSize: 16,
+                              letterSpacing: 0.2,
+                              marginRight: 24,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'$76'}
+                      </Text>
+                      <Icon
+                        color={theme.colors['Grey900']}
+                        name={'Entypo/dots-three-vertical'}
+                        size={20}
+                        style={StyleSheet.applyWidth(
+                          { height: 20, width: 20 },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                  </View>
+                </View>
+                {/* Game item 5 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderColor: theme.colors['Grey300'],
+                      borderWidth: 1,
+                      marginBottom: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Row */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        borderColor: theme.colors['Grey300'],
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: 8,
+                        paddingBottom: 24,
+                        paddingLeft: 16,
+                        paddingRight: 16,
+                        paddingTop: 24,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Grey800'],
+                            fontFamily: 'Inter_700Bold',
+                            fontSize: 16,
+                            letterSpacing: 0.2,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'MPLS Tournament Game'}
+                    </Text>
+                    {/* Price and arrow */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'center', flexDirection: 'row' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text 3 */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            {
+                              color: theme.colors['Primary/Yellow800'],
+                              fontFamily: 'Inter_700Bold',
+                              fontSize: 16,
+                              letterSpacing: 0.2,
+                              marginRight: 24,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'$76'}
+                      </Text>
+                      <Icon
+                        color={theme.colors['Grey900']}
+                        name={'Entypo/dots-three-vertical'}
+                        size={20}
+                        style={StyleSheet.applyWidth(
+                          { height: 20, width: 20 },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          )}
+        </>
+        {/* Payment More Details Modal */}
         <View
-          style={StyleSheet.applyWidth({ height: '80%' }, dimensions.width)}
+          style={StyleSheet.applyWidth(
+            { backgroundColor: 'rgb(255, 255, 255)', borderRadius: 8 },
+            dimensions.width
+          )}
         >
-          {/* Ttile */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                color: theme.colors['Grey600'],
-                fontFamily: 'Inter_400Regular',
-                fontSize: 12,
-                letterSpacing: 1.5,
-                marginBottom: 16,
-                marginTop: 24,
-                paddingLeft: 20,
-                paddingRight: 20,
-                textTransform: 'uppercase',
-              }),
-              dimensions.width
-            )}
-          >
-            {'Weeks earnings details'}
-          </Text>
-          {/* Card Container */}
+          {/* Payment more details modal */}
           <View
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: 'rgb(255, 255, 255)',
-                borderRadius: 16,
-                marginLeft: 20,
-                marginRight: 20,
-                padding: 12,
+                borderRadius: 8,
+                padding: 20,
               },
               dimensions.width
             )}
           >
-            {/* Game item */}
+            {/* info container */}
             <View
               style={StyleSheet.applyWidth(
-                {
-                  borderColor: theme.colors['Grey300'],
-                  borderWidth: 1,
-                  marginBottom: 8,
-                },
+                { marginBottom: 24 },
                 dimensions.width
               )}
             >
-              {/* Row */}
-              <View
+              <Text
+                accessible={true}
+                allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: theme.colors['Grey300'],
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    padding: 8,
-                    paddingBottom: 24,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 24,
-                  },
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    color: theme.colors['Grey600'],
+                    fontFamily: 'Inter_500Medium',
+                    fontSize: 10,
+                    letterSpacing: 1.5,
+                    marginBottom: 12,
+                    textTransform: 'uppercase',
+                  }),
                   dimensions.width
                 )}
               >
+                {'payout date'}
+              </Text>
+              {/* Row */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flexDirection: 'row' },
+                  dimensions.width
+                )}
+              >
+                <Icon
+                  color={theme.colors['Primary/Yellow900']}
+                  name={'Entypo/calendar'}
+                  size={14}
+                />
+                {/* Text 2 */}
                 <Text
                   accessible={true}
                   allowFontScaling={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      color: theme.colors['Grey800'],
-                      fontFamily: 'Inter_700Bold',
-                      fontSize: 16,
-                      letterSpacing: 0.2,
+                      color: theme.colors['Grey900'],
+                      fontFamily: 'Inter_400Regular',
+                      fontSize: 14,
+                      letterSpacing: 0.25,
+                      marginLeft: 8,
                     }),
                     dimensions.width
                   )}
                 >
-                  {'MPLS Tournament Game'}
+                  {'LA Lakers vs Chicago Bulls'}
                 </Text>
-                {/* Price and arrow */}
+              </View>
+            </View>
+            {/* Row */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginBottom: 32,
+                },
+                dimensions.width
+              )}
+            >
+              {/* Organized by */}
+              <View>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                      color: theme.colors['Grey600'],
+                      fontFamily: 'Inter_500Medium',
+                      fontSize: 10,
+                      letterSpacing: 1.5,
+                      marginBottom: 12,
+                      textTransform: 'uppercase',
+                    }),
+                    dimensions.width
+                  )}
+                >
+                  {'assignor'}
+                </Text>
+                {/* Row */}
                 <View
                   style={StyleSheet.applyWidth(
                     { alignItems: 'center', flexDirection: 'row' },
                     dimensions.width
                   )}
                 >
-                  {/* Text 3 */}
+                  <Image
+                    resizeMode={'cover'}
+                    source={Images.Avatar3}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ImageStyles(theme)['Image'],
+                        { height: 24, width: 24 }
+                      ),
+                      dimensions.width
+                    )}
+                  />
                   <Text
                     accessible={true}
                     allowFontScaling={true}
@@ -242,93 +761,68 @@ const EarningsDetailsScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['Text'],
                         {
-                          color: theme.colors['Primary/Yellow800'],
-                          fontFamily: 'Inter_700Bold',
-                          fontSize: 16,
-                          letterSpacing: 0.2,
-                          marginRight: 24,
+                          color: theme.colors['Grey900'],
+                          fontFamily: 'Inter_400Regular',
+                          letterSpacing: 0.25,
+                          marginLeft: 8,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'$76'}
+                    {'Robert Fox'}
                   </Text>
-                  <Icon
-                    color={theme.colors['Grey900']}
-                    name={'Entypo/dots-three-vertical'}
-                    size={20}
-                    style={StyleSheet.applyWidth(
-                      { height: 20, width: 20 },
-                      dimensions.width
-                    )}
-                  />
-                  <Touchable
-                    onPress={() => {
-                      try {
-                        setTest(true);
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
-                  />
                 </View>
               </View>
             </View>
-            {/* Game item 2 */}
+            {/* Row 2 */}
             <View
               style={StyleSheet.applyWidth(
                 {
-                  borderColor: theme.colors['Grey300'],
-                  borderWidth: 1,
-                  marginBottom: 8,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginBottom: 32,
                 },
                 dimensions.width
               )}
             >
-              {/* Row */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: theme.colors['Grey300'],
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    padding: 8,
-                    paddingBottom: 24,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 24,
-                  },
-                  dimensions.width
-                )}
-              >
+              {/* Organized by */}
+              <View>
                 <Text
                   accessible={true}
                   allowFontScaling={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      color: theme.colors['Grey800'],
-                      fontFamily: 'Inter_700Bold',
-                      fontSize: 16,
-                      letterSpacing: 0.2,
+                      color: theme.colors['Grey600'],
+                      fontFamily: 'Inter_500Medium',
+                      fontSize: 10,
+                      letterSpacing: 1.5,
+                      marginBottom: 12,
+                      textTransform: 'uppercase',
                     }),
                     dimensions.width
                   )}
                 >
-                  {'MPLS Tournament Game'}
+                  {'sport organization'}
                 </Text>
-                {/* Price and arrow */}
+                {/* Row */}
                 <View
                   style={StyleSheet.applyWidth(
                     { alignItems: 'center', flexDirection: 'row' },
                     dimensions.width
                   )}
                 >
-                  {/* Text 3 */}
+                  <Image
+                    resizeMode={'cover'}
+                    source={Images.SportOrgLogo}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ImageStyles(theme)['Image'],
+                        { height: 24, width: 24 }
+                      ),
+                      dimensions.width
+                    )}
+                  />
                   <Text
                     accessible={true}
                     allowFontScaling={true}
@@ -336,315 +830,23 @@ const EarningsDetailsScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['Text'],
                         {
-                          color: theme.colors['Primary/Yellow800'],
-                          fontFamily: 'Inter_700Bold',
-                          fontSize: 16,
-                          letterSpacing: 0.2,
-                          marginRight: 24,
+                          color: theme.colors['Grey900'],
+                          fontFamily: 'Inter_400Regular',
+                          letterSpacing: 0.25,
+                          marginLeft: 8,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'$76'}
+                    {'National Basketball Association'}
                   </Text>
-                  <Icon
-                    color={theme.colors['Grey900']}
-                    name={'Entypo/dots-three-vertical'}
-                    size={20}
-                    style={StyleSheet.applyWidth(
-                      { height: 20, width: 20 },
-                      dimensions.width
-                    )}
-                  />
-                </View>
-              </View>
-            </View>
-            {/* Game item 3 */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  borderColor: theme.colors['Grey300'],
-                  borderWidth: 1,
-                  marginBottom: 8,
-                },
-                dimensions.width
-              )}
-            >
-              {/* Row */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: theme.colors['Grey300'],
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    padding: 8,
-                    paddingBottom: 24,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 24,
-                  },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      color: theme.colors['Grey800'],
-                      fontFamily: 'Inter_700Bold',
-                      fontSize: 16,
-                      letterSpacing: 0.2,
-                    }),
-                    dimensions.width
-                  )}
-                >
-                  {'MPLS Tournament Game'}
-                </Text>
-                {/* Price and arrow */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    { alignItems: 'center', flexDirection: 'row' },
-                    dimensions.width
-                  )}
-                >
-                  {/* Text 3 */}
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['Text'],
-                        {
-                          color: theme.colors['Primary/Yellow800'],
-                          fontFamily: 'Inter_700Bold',
-                          fontSize: 16,
-                          letterSpacing: 0.2,
-                          marginRight: 24,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'$76'}
-                  </Text>
-                  <Icon
-                    color={theme.colors['Grey900']}
-                    name={'Entypo/dots-three-vertical'}
-                    size={20}
-                    style={StyleSheet.applyWidth(
-                      { height: 20, width: 20 },
-                      dimensions.width
-                    )}
-                  />
-                </View>
-              </View>
-            </View>
-            {/* Game item 4 */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  borderColor: theme.colors['Grey300'],
-                  borderWidth: 1,
-                  marginBottom: 8,
-                },
-                dimensions.width
-              )}
-            >
-              {/* Row */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: theme.colors['Grey300'],
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    padding: 8,
-                    paddingBottom: 24,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 24,
-                  },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      color: theme.colors['Grey800'],
-                      fontFamily: 'Inter_700Bold',
-                      fontSize: 16,
-                      letterSpacing: 0.2,
-                    }),
-                    dimensions.width
-                  )}
-                >
-                  {'MPLS Tournament Game'}
-                </Text>
-                {/* Price and arrow */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    { alignItems: 'center', flexDirection: 'row' },
-                    dimensions.width
-                  )}
-                >
-                  {/* Text 3 */}
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['Text'],
-                        {
-                          color: theme.colors['Primary/Yellow800'],
-                          fontFamily: 'Inter_700Bold',
-                          fontSize: 16,
-                          letterSpacing: 0.2,
-                          marginRight: 24,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'$76'}
-                  </Text>
-                  <Icon
-                    color={theme.colors['Grey900']}
-                    name={'Entypo/dots-three-vertical'}
-                    size={20}
-                    style={StyleSheet.applyWidth(
-                      { height: 20, width: 20 },
-                      dimensions.width
-                    )}
-                  />
-                </View>
-              </View>
-            </View>
-            {/* Game item 5 */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  borderColor: theme.colors['Grey300'],
-                  borderWidth: 1,
-                  marginBottom: 8,
-                },
-                dimensions.width
-              )}
-            >
-              {/* Row */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: theme.colors['Grey300'],
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    padding: 8,
-                    paddingBottom: 24,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 24,
-                  },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      color: theme.colors['Grey800'],
-                      fontFamily: 'Inter_700Bold',
-                      fontSize: 16,
-                      letterSpacing: 0.2,
-                    }),
-                    dimensions.width
-                  )}
-                >
-                  {'MPLS Tournament Game'}
-                </Text>
-                {/* Price and arrow */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    { alignItems: 'center', flexDirection: 'row' },
-                    dimensions.width
-                  )}
-                >
-                  {/* Text 3 */}
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['Text'],
-                        {
-                          color: theme.colors['Primary/Yellow800'],
-                          fontFamily: 'Inter_700Bold',
-                          fontSize: 16,
-                          letterSpacing: 0.2,
-                          marginRight: 24,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'$76'}
-                  </Text>
-                  <Icon
-                    color={theme.colors['Grey900']}
-                    name={'Entypo/dots-three-vertical'}
-                    size={20}
-                    style={StyleSheet.applyWidth(
-                      { height: 20, width: 20 },
-                      dimensions.width
-                    )}
-                  />
                 </View>
               </View>
             </View>
           </View>
         </View>
       </ScrollView>
-
-      <Modal animationType={'none'} visible={Constants['rene']}>
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          style={StyleSheet.applyWidth(
-            GlobalStyles.TextStyles(theme)['Text'],
-            dimensions.width
-          )}
-        >
-          {'Double click me to edit 👀'}
-        </Text>
-
-        <View>
-          <Icon name={'FontAwesome/photo'} size={24} />
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TextStyles(theme)['Text'],
-              dimensions.width
-            )}
-          >
-            {'Double click me to edit 👀'}
-          </Text>
-        </View>
-      </Modal>
       {/* Navigation Bar */}
       <View
         style={StyleSheet.applyWidth(

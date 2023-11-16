@@ -68,3 +68,6 @@ export const NumberInputStyles = theme =>
       paddingTop: 8,
     },
   });
+
+export const SliderStyles = theme =>
+  StyleSheet.create({ Slider: { marginLeft: 12, marginRight: 12 } });
