@@ -699,70 +699,23 @@ const GameDetailsScreen = props => {
                 {/* Primary button */}
                 <Button
                   onPress={() => {
-                    const handler = async () => {
-                      console.log('Primary button ON_PRESS Start');
-                      let error = null;
-                      try {
-                        console.log('Start ON_PRESS:0 FETCH_REQUEST');
-                        const loginResponse = (
-                          await SupabaseStagingApi.loginPOST(Constants, {})
-                        )?.json;
-                        console.log('Complete ON_PRESS:0 FETCH_REQUEST', {
-                          loginResponse,
-                        });
-                        console.log('Start ON_PRESS:1 EXTRACT_KEY');
-                        const accessToken = loginResponse?.access_token;
-                        console.log('Complete ON_PRESS:1 EXTRACT_KEY', {
-                          accessToken,
-                        });
-                        console.log('Start ON_PRESS:2 IF');
-                        if (accessToken) {
-                          setGlobalVariableValue({
-                            key: 'supabaseAccessToken',
-                            value: accessToken + accessToken,
-                          });
-                          const user_id = loginResponse?.user.id;
-                          setGlobalVariableValue({
-                            key: 'user',
-                            value: user_id,
-                          });
-                          const getSessionProfile = (
-                            await SupabaseStagingApi.getProfileSessionGET(
-                              Constants,
-                              { user: user_id }
-                            )
-                          )?.json;
-                          const profileObject = getSessionProfile?.[0];
-                          const profileObjectVariable = setGlobalVariableValue({
-                            key: 'user_session',
-                            value: profileObject,
-                          });
-                          const role_id_extracted = profileObject?.roles.id;
-                          setGlobalVariableValue({
-                            key: 'role_id',
-                            value: role_id_extracted,
-                          });
-                          const profile_id_extracted = profileObject?.id;
-                          setGlobalVariableValue({
-                            key: 'profile_id',
-                            value: profile_id_extracted,
-                          });
-                          navigation.navigate('DashboardScreen');
-                        } else {
-                          const extractedMeesageError =
-                            loginResponse?.error_description;
-                        }
-                        console.log('Complete ON_PRESS:2 IF');
-                      } catch (err) {
-                        console.error(err);
-                        error = err.message ?? err;
-                      }
-                      console.log(
-                        'Primary button ON_PRESS Complete',
-                        error ? { error } : 'no error'
-                      );
-                    };
-                    handler();
+                    console.log('Primary button ON_PRESS Start');
+                    let error = null;
+                    try {
+                      console.log('Start ON_PRESS:0 SET_VARIABLE');
+                      setGlobalVariableValue({
+                        key: 'visible',
+                        value: true,
+                      });
+                      console.log('Complete ON_PRESS:0 SET_VARIABLE');
+                    } catch (err) {
+                      console.error(err);
+                      error = err.message ?? err;
+                    }
+                    console.log(
+                      'Primary button ON_PRESS Complete',
+                      error ? { error } : 'no error'
+                    );
                   }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -1645,6 +1598,313 @@ const GameDetailsScreen = props => {
             </View>
           </View>
         </View>
+        {/* Confirm Selection Modal */}
+        <>
+          {!(props.route?.params?.visible ?? null) ? null : (
+            <View
+              style={StyleSheet.applyWidth(
+                { backgroundColor: 'rgb(255, 255, 255)', width: '100%' },
+                dimensions.width
+              )}
+            >
+              <Shadow
+                paintInside={true}
+                showShadowCornerBottomEnd={true}
+                showShadowCornerBottomStart={true}
+                showShadowCornerTopEnd={true}
+                showShadowCornerTopStart={true}
+                showShadowSideBottom={true}
+                showShadowSideEnd={true}
+                showShadowSideStart={true}
+                showShadowSideTop={true}
+                style={StyleSheet.applyWidth(
+                  { width: '100%' },
+                  dimensions.width
+                )}
+              >
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: 'rgb(255, 255, 255)',
+                      borderRadius: 16,
+                      padding: 32,
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          color: theme.colors['Grey700'],
+                          fontFamily: 'Inter_500Medium',
+                          fontSize: 20,
+                          letterSpacing: 0.15,
+                          marginBottom: 32,
+                          textAlign: 'center',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Confirm role selection'}
+                  </Text>
+                  {/* available position item */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        backgroundColor: theme.colors['Secondary/Bluegreen100'],
+                        borderRadius: 8,
+                        flexDirection: 'row',
+                        marginBottom: 32,
+                        paddingBottom: 8,
+                        paddingLeft: 12,
+                        paddingRight: 12,
+                        paddingTop: 8,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          backgroundColor:
+                            theme.colors['Secondary/Bluegreen100'],
+                          borderColor: theme.colors['Secondary/Bluegreen800'],
+                          borderRadius: 100,
+                          borderStyle: 'dashed',
+                          borderWidth: 1,
+                          height: 32,
+                          marginRight: 8,
+                          width: 32,
+                        },
+                        dimensions.width
+                      )}
+                    />
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Secondary/Bluegreen800'],
+                            fontFamily: 'Inter_400Regular',
+                            fontSize: 16,
+                            letterSpacing: 0.2,
+                            lineHeight: 16,
+                            marginRight: 8,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Available Position'}
+                    </Text>
+                    {/* Label 2 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          backgroundColor:
+                            theme.colors['Secondary/Bluegreen800'],
+                          borderRadius: 8,
+                          justifyContent: 'center',
+                          paddingBottom: 2,
+                          paddingLeft: 8,
+                          paddingRight: 8,
+                          paddingTop: 2,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            {
+                              color: 'rgb(255, 255, 255)',
+                              fontFamily: 'Inter_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Line'}
+                      </Text>
+                    </View>
+                  </View>
+                  {/* Paragraph */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          color: theme.colors['Grey700'],
+                          fontFamily: 'Inter_400Regular',
+                          letterSpacing: 0.1,
+                          lineHeight: 20,
+                          marginBottom: 32,
+                          textAlign: 'center',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {
+                      'You are picking up a Line Referee available position. Your compensation will be $20 for this match.'
+                    }
+                  </Text>
+                  {/* Row */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Secondary button */}
+                    <Button
+                      onPress={() => {
+                        console.log('Secondary button ON_PRESS Start');
+                        let error = null;
+                        try {
+                          console.log('Start ON_PRESS:0 SET_VARIABLE');
+                          setGlobalVariableValue({
+                            key: 'visible',
+                            value: false,
+                          });
+                          console.log('Complete ON_PRESS:0 SET_VARIABLE');
+                        } catch (err) {
+                          console.error(err);
+                          error = err.message ?? err;
+                        }
+                        console.log(
+                          'Secondary button ON_PRESS Complete',
+                          error ? { error } : 'no error'
+                        );
+                      }}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ButtonStyles(theme)['Button'],
+                          {
+                            backgroundColor: 'rgb(255, 255, 255)',
+                            borderRadius: 100,
+                            color: theme.colors['Grey700'],
+                            fontFamily: 'Inter_500Medium',
+                            fontSize: 16,
+                            letterSpacing: 1.25,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      title={'Cancel'}
+                    />
+                    {/* Primary button */}
+                    <Button
+                      onPress={() => {
+                        const handler = async () => {
+                          console.log('Primary button ON_PRESS Start');
+                          let error = null;
+                          try {
+                            console.log('Start ON_PRESS:0 FETCH_REQUEST');
+                            const loginResponse = (
+                              await SupabaseStagingApi.loginPOST(Constants, {})
+                            )?.json;
+                            console.log('Complete ON_PRESS:0 FETCH_REQUEST', {
+                              loginResponse,
+                            });
+                            console.log('Start ON_PRESS:1 EXTRACT_KEY');
+                            const accessToken = loginResponse?.access_token;
+                            console.log('Complete ON_PRESS:1 EXTRACT_KEY', {
+                              accessToken,
+                            });
+                            console.log('Start ON_PRESS:2 IF');
+                            if (accessToken) {
+                              setGlobalVariableValue({
+                                key: 'supabaseAccessToken',
+                                value: accessToken + accessToken,
+                              });
+                              const user_id = loginResponse?.user.id;
+                              setGlobalVariableValue({
+                                key: 'user',
+                                value: user_id,
+                              });
+                              const getSessionProfile = (
+                                await SupabaseStagingApi.getProfileSessionGET(
+                                  Constants,
+                                  { user: user_id }
+                                )
+                              )?.json;
+                              const profileObject = getSessionProfile?.[0];
+                              const profileObjectVariable =
+                                setGlobalVariableValue({
+                                  key: 'user_session',
+                                  value: profileObject,
+                                });
+                              const role_id_extracted = profileObject?.roles.id;
+                              setGlobalVariableValue({
+                                key: 'role_id',
+                                value: role_id_extracted,
+                              });
+                              const profile_id_extracted = profileObject?.id;
+                              setGlobalVariableValue({
+                                key: 'profile_id',
+                                value: profile_id_extracted,
+                              });
+                              navigation.navigate('DashboardScreen');
+                            } else {
+                              const extractedMeesageError =
+                                loginResponse?.error_description;
+                            }
+                            console.log('Complete ON_PRESS:2 IF');
+                          } catch (err) {
+                            console.error(err);
+                            error = err.message ?? err;
+                          }
+                          console.log(
+                            'Primary button ON_PRESS Complete',
+                            error ? { error } : 'no error'
+                          );
+                        };
+                        handler();
+                      }}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ButtonStyles(theme)['Button'],
+                          {
+                            backgroundColor: 'rgb(248, 211, 71)',
+                            borderRadius: 100,
+                            color: 'rgb(39, 31, 1)',
+                            fontFamily: 'Inter_500Medium',
+                            fontSize: 16,
+                            letterSpacing: 1.25,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      title={'Yes, confirm selection'}
+                    />
+                  </View>
+                </View>
+              </Shadow>
+            </View>
+          )}
+        </>
       </ScrollView>
       {/* Navigation Bar */}
       <View
