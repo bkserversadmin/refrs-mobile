@@ -8,9 +8,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import theme from './themes/Draftbit.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
+import AssignorHomeCreatedGamesScreen from './screens/AssignorHomeCreatedGamesScreen';
+import AssignorHomeRefereeVacanciesScreen from './screens/AssignorHomeRefereeVacanciesScreen';
 import DashboardScreen from './screens/DashboardScreen';
+import EarningsDetailsScreen from './screens/EarningsDetailsScreen';
 import EarningsScreen from './screens/EarningsScreen';
+import GameDetailsScreen from './screens/GameDetailsScreen';
 import LoginScreen from './screens/LoginScreen';
+import MyGamesScreen from './screens/MyGamesScreen';
+import NotificationsScreen from './screens/NotificationsScreen';
+import ProfilePayoutInformationScreen from './screens/ProfilePayoutInformationScreen';
+import ProfilePersonalInformationScreen from './screens/ProfilePersonalInformationScreen';
 import RegisterScreen from './screens/RegisterScreen';
 
 const Stack = createStackNavigator();
@@ -101,6 +109,62 @@ export default function RootAppNavigator() {
           component={EarningsScreen}
           options={{
             title: 'Earnings',
+          }}
+        />
+        <Stack.Screen
+          name="EarningsDetailsScreen"
+          component={EarningsDetailsScreen}
+          options={{
+            title: 'Earnings Details',
+          }}
+        />
+        <Stack.Screen
+          name="ProfilePersonalInformationScreen"
+          component={ProfilePersonalInformationScreen}
+          options={{
+            title: 'Profile - Personal information',
+          }}
+        />
+        <Stack.Screen
+          name="ProfilePayoutInformationScreen"
+          component={ProfilePayoutInformationScreen}
+          options={{
+            title: 'Profile - Payout information ',
+          }}
+        />
+        <Stack.Screen
+          name="NotificationsScreen"
+          component={NotificationsScreen}
+          options={{
+            title: 'Notifications',
+          }}
+        />
+        <Stack.Screen
+          name="GameDetailsScreen"
+          component={GameDetailsScreen}
+          options={{
+            title: 'Game Details',
+          }}
+        />
+        <Stack.Screen
+          name="MyGamesScreen"
+          component={MyGamesScreen}
+          options={{
+            title: 'My Games',
+          }}
+        />
+        <Stack.Screen
+          name="AssignorHomeCreatedGamesScreen"
+          component={AssignorHomeCreatedGamesScreen}
+          options={{
+            title: '[Assignor]Home - Created games',
+          }}
+        />
+        <Stack.Screen
+          name="AssignorHomeRefereeVacanciesScreen"
+          component={AssignorHomeRefereeVacanciesScreen}
+          options={{
+            title: '[Assignor]Home - Referee vacancies',
           }}
         />
       </Stack.Navigator>
