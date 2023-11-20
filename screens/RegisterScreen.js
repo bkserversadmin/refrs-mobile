@@ -38,17 +38,6 @@ const RegisterScreen = props => {
   const Variables = Constants;
 
   // reset screen variable to initial value if needed
-  const resetScreenVariables = variableNames => {
-    const draftbit = require('@draftbit');
-
-    if (typeof draftbit !== 'undefined')
-      for (const variableName of variableNames) {
-        draftbit.screens.setScreenVariable(
-          variableName,
-          draftbit.screens.getScreenVariableInitialValue(variableName)
-        );
-      }
-  };
 
   // validate signup form if all is valid can continue to create request
   const validateRegisterForm = (
