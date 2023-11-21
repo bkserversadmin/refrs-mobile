@@ -25,6 +25,7 @@ import * as GlobalStyles from "./GlobalStyles.js";
 import Images from "./config/Images";
 
 const Stack = createStackNavigator();
+const GamesStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const tabButton = (label, iconName, focused, isProfile) => {
@@ -91,25 +92,26 @@ const MainTabNavigator = (props) => {
 					left: 0,
 					right: 0,
 					backgroundColor: "#ffffff",
-					height: 110,
+					height: 105,
 				},
 			}}
 		>
-			{/* <Tab.Screen
-				name="DashboardScreen"
-				component={DashboardScreen}
+			<Tab.Screen
+				name="MyGamesScreen"
+				component={GamesNavigatorStack}
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,
+
 					tabBarIcon: ({ focused }) =>
 						tabButton(
-							"Dashboard",
+							"My Games",
 							"MaterialCommunityIcons/whistle-outline",
 							focused
 						),
 				}}
-			/> */}
-			<Tab.Screen
+			/>
+			{/* <Tab.Screen
 				name="MyGamesScreen"
 				component={MyGamesScreen}
 				options={{
@@ -123,7 +125,7 @@ const MainTabNavigator = (props) => {
 							focused
 						),
 				}}
-			/>
+			/> */}
 			<Tab.Screen
 				name="EarningsScreen"
 				component={EarningsScreen}
@@ -145,6 +147,34 @@ const MainTabNavigator = (props) => {
 				}}
 			/>
 		</Tab.Navigator>
+	);
+};
+
+const GamesNavigatorStack = (props) => {
+	return (
+		<GamesStack.Navigator
+			initialRouteName="MyGamesScreen"
+			screenOptions={{
+				animationEnabled: true,
+			}}
+		>
+			<GamesStack.Screen
+				name="MyGamesScreen"
+				component={MyGamesScreen}
+				options={{
+					title: "My Games",
+					headerShown: false,
+				}}
+			/>
+			<GamesStack.Screen
+				name="GameDetailsScreen"
+				component={GameDetailsScreen}
+				options={{
+					title: "Game Details",
+					headerShown: false,
+				}}
+			/>
+		</GamesStack.Navigator>
 	);
 };
 
