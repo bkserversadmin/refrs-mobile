@@ -18,7 +18,7 @@ import LoginScreen from "./screens/LoginScreen";
 import MyGamesScreen from "./screens/MyGamesScreen";
 import NotificationsScreen from "./screens/NotificationsScreen";
 import ProfilePayoutInformationScreen from "./screens/ProfilePayoutInformationScreen";
-import ProfilePersonalInformationScreen from "./screens/ProfilePersonalInformationScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import * as StyleSheet from "./utils/StyleSheet";
 import * as GlobalStyles from "./GlobalStyles.js";
@@ -137,8 +137,8 @@ const MainTabNavigator = (props) => {
 				}}
 			/>
 			<Tab.Screen
-				name="ProfilePersonalInformationScreen"
-				component={ProfilePersonalInformationScreen}
+				name="ProfileScreen"
+				component={ProfileScreen}
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,
@@ -276,8 +276,8 @@ export default function RootAppNavigator() {
 					}}
 				/> */}
 				{/* <Stack.Screen
-					name="ProfilePersonalInformationScreen"
-					component={ProfilePersonalInformationScreen}
+					name="ProfileScreen"
+					component={ProfileScreen}
 					options={{
 						title: "Profile - Personal information",
 					}}
