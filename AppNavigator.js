@@ -1,5 +1,5 @@
 import * as React from "react";
-import { I18nManager, Platform, StyleSheet, Text, View } from "react-native";
+import { I18nManager, Platform, Text, View, Image } from "react-native";
 import { systemWeights } from "react-native-typography";
 import { Icon, Touchable } from "@draftbit/ui";
 import { NavigationContainer } from "@react-navigation/native";
@@ -20,9 +20,132 @@ import NotificationsScreen from "./screens/NotificationsScreen";
 import ProfilePayoutInformationScreen from "./screens/ProfilePayoutInformationScreen";
 import ProfilePersonalInformationScreen from "./screens/ProfilePersonalInformationScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import * as StyleSheet from "./utils/StyleSheet";
+import * as GlobalStyles from "./GlobalStyles.js";
+import Images from "./config/Images";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const tabButton = (label, iconName, focused, isProfile) => {
+	if (isProfile) {
+		return (
+			<View className="w-full h-full flex items-center p-3 ">
+				<View
+					className={`m-auto flex flex-col items-center justify-center w-14 h-14 rounded-full p-1 ${
+						focused ? "bg-[#F8D347]" : ""
+					} `}
+				>
+					<Image
+						resizeMode={"cover"}
+						source={{
+							uri: "https://ui-avatars.com/api/?name=Enrique+Sarmiento",
+						}}
+						className="h-full w-full rounded-full"
+					/>
+				</View>
+			</View>
+		);
+	}
+	return (
+		<View className="w-full h-full flex items-center p-3 ">
+			<View
+				className={`m-auto flex flex-col items-center justify-center w-full h-full rounded-md ${
+					focused ? "bg-[#F8D347]" : ""
+				} `}
+			>
+				<Icon
+					color={theme.colors["Grey600"]}
+					name={iconName}
+					size={24}
+					style={StyleSheet.applyWidth({ marginBottom: 4 })}
+				/>
+				{label && (
+					<Text
+						accessible={true}
+						allowFontScaling={true}
+						style={StyleSheet.applyWidth(
+							StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
+								color: theme.colors["Grey700"],
+								fontFamily: "Inter_500Medium",
+								letterSpacing: 1.25,
+							})
+						)}
+					>
+						{label}
+					</Text>
+				)}
+			</View>
+		</View>
+	);
+};
+
+const MainTabNavigator = (props) => {
+	return (
+		<Tab.Navigator
+			screenOptions={{
+				tabBarStyle: {
+					position: "absolute",
+					elevation: 0,
+					bottom: 0,
+					left: 0,
+					right: 0,
+					backgroundColor: "#ffffff",
+					height: 110,
+				},
+			}}
+		>
+			{/* <Tab.Screen
+				name="DashboardScreen"
+				component={DashboardScreen}
+				options={{
+					tabBarShowLabel: false,
+					headerShown: false,
+					tabBarIcon: ({ focused }) =>
+						tabButton(
+							"Dashboard",
+							"MaterialCommunityIcons/whistle-outline",
+							focused
+						),
+				}}
+			/> */}
+			<Tab.Screen
+				name="MyGamesScreen"
+				component={MyGamesScreen}
+				options={{
+					tabBarShowLabel: false,
+					headerShown: false,
+					tabBarIcon: ({ focused }) =>
+						tabButton(
+							"My Games",
+							"MaterialCommunityIcons/whistle-outline",
+							focused
+						),
+				}}
+			/>
+			<Tab.Screen
+				name="EarningsDetailsScreen"
+				component={EarningsDetailsScreen}
+				options={{
+					tabBarShowLabel: false,
+					headerShown: false,
+					tabBarIcon: ({ focused }) =>
+						tabButton("Earnings", "MaterialIcons/attach-money", focused),
+				}}
+			/>
+			<Tab.Screen
+				name="ProfilePayoutInformationScreen"
+				component={ProfilePayoutInformationScreen}
+				options={{
+					tabBarShowLabel: false,
+					headerShown: false,
+					tabBarIcon: ({ focused }) =>
+						tabButton("Profile", null, focused, true),
+				}}
+			/>
+		</Tab.Navigator>
+	);
+};
 
 function Placeholder() {
 	return (
@@ -74,6 +197,7 @@ function Placeholder() {
 		</View>
 	);
 }
+
 export default function RootAppNavigator() {
 	return (
 		<NavigationContainer linking={LinkingConfiguration}>
@@ -92,7 +216,7 @@ export default function RootAppNavigator() {
 				/>
 				<Stack.Screen
 					name="DashboardScreen"
-					component={DashboardScreen}
+					component={MainTabNavigator}
 					options={{
 						title: "Dashboard",
 						headerShown: false,
@@ -106,7 +230,7 @@ export default function RootAppNavigator() {
 						headerLeft: () => null,
 					}}
 				/>
-				<Stack.Screen
+				{/* <Stack.Screen
 					name="EarningsScreen"
 					component={EarningsScreen}
 					options={{
@@ -119,8 +243,8 @@ export default function RootAppNavigator() {
 					options={{
 						title: "Earnings Details",
 					}}
-				/>
-				<Stack.Screen
+				/> */}
+				{/* <Stack.Screen
 					name="ProfilePersonalInformationScreen"
 					component={ProfilePersonalInformationScreen}
 					options={{
@@ -140,8 +264,8 @@ export default function RootAppNavigator() {
 					options={{
 						title: "Notifications",
 					}}
-				/>
-				<Stack.Screen
+				/> */}
+				{/* <Stack.Screen
 					name="GameDetailsScreen"
 					component={GameDetailsScreen}
 					options={{
@@ -168,62 +292,8 @@ export default function RootAppNavigator() {
 					options={{
 						title: "[Assignor]Home - Referee vacancies",
 					}}
-				/>
+				/> */}
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
 }
-
-const styles = StyleSheet.create({
-	headerIcon: Platform.select({
-		ios: {
-			marginVertical: 12,
-			resizeMode: "contain",
-			transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
-		},
-		default: {
-			margin: 3,
-			resizeMode: "contain",
-			transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
-		},
-	}),
-	headerIconLeft: Platform.select({
-		ios: {
-			marginRight: 6,
-		},
-	}),
-	headerIconRight: Platform.select({
-		ios: {
-			marginLeft: 6,
-		},
-	}),
-	headerContainer: {
-		alignItems: "center",
-		flexDirection: "row",
-		...Platform.select({
-			ios: null,
-			default: {
-				marginVertical: 3,
-				marginHorizontal: 11,
-			},
-		}),
-	},
-	headerContainerLeft: Platform.select({
-		ios: {
-			marginLeft: 8,
-		},
-	}),
-	headerContainerRight: Platform.select({
-		ios: {
-			marginRight: 8,
-		},
-	}),
-	headerLabelWrapper: {
-		flexDirection: "row",
-		alignItems: "flex-start",
-	},
-	headerLabel: {
-		fontSize: 17,
-		letterSpacing: 0.35,
-	},
-});
