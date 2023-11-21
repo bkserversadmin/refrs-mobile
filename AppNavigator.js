@@ -125,8 +125,8 @@ const MainTabNavigator = (props) => {
 				}}
 			/>
 			<Tab.Screen
-				name="EarningsDetailsScreen"
-				component={EarningsDetailsScreen}
+				name="EarningsScreen"
+				component={EarningsScreen}
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,
@@ -135,8 +135,8 @@ const MainTabNavigator = (props) => {
 				}}
 			/>
 			<Tab.Screen
-				name="ProfilePayoutInformationScreen"
-				component={ProfilePayoutInformationScreen}
+				name="ProfilePersonalInformationScreen"
+				component={ProfilePersonalInformationScreen}
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,

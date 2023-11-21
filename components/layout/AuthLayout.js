@@ -29,6 +29,7 @@ const AuthLayout = (props) => {
 					bounces={true}
 					showsHorizontalScrollIndicator={true}
 					showsVerticalScrollIndicator={true}
+					className="mb-20"
 				>
 					{children}
 				</ScrollView>
