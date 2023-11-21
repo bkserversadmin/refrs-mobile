@@ -115,6 +115,7 @@ const MainTabNavigator = (props) => {
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,
+
 					tabBarIcon: ({ focused }) =>
 						tabButton(
 							"My Games",
