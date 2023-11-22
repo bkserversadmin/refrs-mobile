@@ -13,7 +13,6 @@ const AuthLayout = (props) => {
 			scrollable={false}
 			style={StyleSheet.applyWidth(
 				{ backgroundColor: "rgb(61, 61, 61)" },
-				// { backgroundColor: "rgb(245, 245, 245)" },
 				dimensions.width
 			)}
 			hasTopSafeArea={true}

@@ -1,7 +1,7 @@
 import { withTheme, Link, Icon, Touchable } from "@draftbit/ui";
+import { Text, View, useWindowDimensions } from "react-native";
 import * as StyleSheet from "../../utils/StyleSheet";
 import * as GlobalStyles from "../../GlobalStyles.js";
-import { Text, View, useWindowDimensions } from "react-native";
 
 const Header = (props) => {
 	const { theme, navigation, name } = props;

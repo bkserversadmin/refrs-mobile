@@ -1,7 +1,7 @@
 import { withTheme, Touchable, Icon } from "@draftbit/ui";
 import { useNavigation } from "@react-navigation/native";
-import * as StyleSheet from "../../utils/StyleSheet";
 import { View, Text, useWindowDimensions } from "react-native";
+import * as StyleSheet from "../../utils/StyleSheet";
 import * as GlobalStyles from "../../GlobalStyles";
 
 const GameItem = (props) => {
@@ -14,7 +14,6 @@ const GameItem = (props) => {
 				navigation.navigate("GameDetailsScreen");
 			}}
 		>
-			{/* GameCard */}
 			<View
 				style={{
 					backgroundColor: "rgb(253, 241, 196)",
@@ -26,7 +25,6 @@ const GameItem = (props) => {
 					...dimensions.width,
 				}}
 			>
-				{/* Row */}
 				<View
 					style={{
 						alignItems: "center",
@@ -58,7 +56,6 @@ const GameItem = (props) => {
 							...dimensions.width,
 						}}
 					>
-						{/* Number */}
 						<View
 							style={{
 								backgroundColor: "rgb(245, 245, 245)",
@@ -79,7 +76,7 @@ const GameItem = (props) => {
 									})
 								)}
 							>
-								{"#231"}
+								#231
 							</Text>
 						</View>
 						<Icon name={"Entypo/dots-three-vertical"} size={24} />
@@ -94,7 +91,6 @@ const GameItem = (props) => {
 						...dimensions.width,
 					}}
 				>
-					{/* Value */}
 					<View
 						style={{
 							backgroundColor: "rgb(235, 255, 255)",
@@ -116,7 +112,7 @@ const GameItem = (props) => {
 								})
 							)}
 						>
-							{"#231"}
+							#231
 						</Text>
 					</View>
 					{/* Date */}
@@ -149,7 +145,7 @@ const GameItem = (props) => {
 								})
 							)}
 						>
-							{"May 8th - 8:00 PM "}
+							May 8th - 8:00 PM
 						</Text>
 					</View>
 					{/* Location */}
@@ -182,10 +178,9 @@ const GameItem = (props) => {
 								})
 							)}
 						>
-							{"PP"}
+							PP
 						</Text>
 					</View>
-					{/* Price */}
 					<View
 						style={{
 							alignItems: "center",
@@ -207,7 +202,7 @@ const GameItem = (props) => {
 								})
 							)}
 						>
-							{"$35"}
+							$35
 						</Text>
 					</View>
 				</View>

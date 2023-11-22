@@ -1,31 +1,21 @@
-import {
-	withTheme,
-	Shadow,
-	IconButton,
-	MultiSelectPicker,
-	Slider,
-	Button,
-} from "@draftbit/ui";
+import { withTheme, MultiSelectPicker, Slider, Button } from "@draftbit/ui";
+import { View, Text, useWindowDimensions } from "react-native";
 import * as GlobalStyles from "../../GlobalStyles";
 import * as StyleSheet from "../../utils/StyleSheet";
-import { View, Text, Modal, useWindowDimensions } from "react-native";
 import BaseModal from "../ui/BaseModal";
-import { useState } from "react";
 
 const GamesFilterModal = (props) => {
-	const { theme, children, isOpen, onClose } = props;
+	const { theme, isOpen, onClose } = props;
 	const dimensions = useWindowDimensions();
 	return (
 		<BaseModal isOpen={isOpen} title="Filter games" onClose={onClose}>
 			<View style={{ alignContent: "flex-end" }}>
-				{/* form_control */}
 				<View
 					style={StyleSheet.applyWidth(
 						{ marginBottom: 24, width: "100%" },
 						dimensions.width
 					)}
 				>
-					{/* Label */}
 					<Text
 						accessible={true}
 						allowFontScaling={true}
@@ -42,9 +32,8 @@ const GamesFilterModal = (props) => {
 							dimensions.width
 						)}
 					>
-						{"Other filters"}
+						Other filters
 					</Text>
-					{/* state_multi_select_picker */}
 					<MultiSelectPicker
 						autoDismissKeyboard={true}
 						dropDownBackgroundColor={theme.colors.background}
@@ -70,7 +59,7 @@ const GamesFilterModal = (props) => {
 						)}
 						type={"solid"}
 					/>
-					{/* city_multi_select_picker */}
+
 					<MultiSelectPicker
 						autoDismissKeyboard={true}
 						dropDownBackgroundColor={theme.colors.background}
@@ -96,7 +85,7 @@ const GamesFilterModal = (props) => {
 						)}
 						type={"solid"}
 					/>
-					{/* sport_multi_select_picker */}
+
 					<MultiSelectPicker
 						autoDismissKeyboard={true}
 						dropDownBackgroundColor={theme.colors.background}
@@ -122,7 +111,7 @@ const GamesFilterModal = (props) => {
 						)}
 						type={"solid"}
 					/>
-					{/* level_multi_select_picker */}
+
 					<MultiSelectPicker
 						autoDismissKeyboard={true}
 						dropDownBackgroundColor={theme.colors.background}
@@ -152,7 +141,6 @@ const GamesFilterModal = (props) => {
 				<View
 					style={StyleSheet.applyWidth({ marginBottom: 24 }, dimensions.width)}
 				>
-					{/* Label */}
 					<Text
 						accessible={true}
 						allowFontScaling={true}
@@ -169,7 +157,7 @@ const GamesFilterModal = (props) => {
 							dimensions.width
 						)}
 					>
-						{"minimum compensation"}
+						minimum compensation
 					</Text>
 					<Slider
 						maximumTrackTintColor={theme.colors["Grey400"]}
@@ -183,7 +171,7 @@ const GamesFilterModal = (props) => {
 					/>
 				</View>
 			</View>
-			{/* Button container */}
+
 			<View
 				style={StyleSheet.applyWidth(
 					{
@@ -195,7 +183,6 @@ const GamesFilterModal = (props) => {
 					dimensions.width
 				)}
 			>
-				{/* Primary button */}
 				<Button
 					// onPress={() => console.log("on pres ===>")}
 					style={StyleSheet.applyWidth(
