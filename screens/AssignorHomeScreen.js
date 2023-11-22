@@ -271,7 +271,6 @@ const AssignorHomeScreen = (props) => {
 						<Button
 							onPress={() => {
 								try {
-									navigation.navigate("ProfilePayoutInformationScreen");
 								} catch (err) {
 									console.error(err);
 								}

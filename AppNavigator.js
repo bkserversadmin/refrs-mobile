@@ -17,7 +17,6 @@ import GameDetailsScreen from "./screens/GameDetailsScreen";
 import LoginScreen from "./screens/LoginScreen";
 import MyGamesScreen from "./screens/MyGamesScreen";
 import NotificationsScreen from "./screens/NotificationsScreen";
-import ProfilePayoutInformationScreen from "./screens/ProfilePayoutInformationScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import * as StyleSheet from "./utils/StyleSheet";
@@ -283,13 +282,6 @@ export default function RootAppNavigator() {
 					}}
 				/>
 				<Stack.Screen
-					name="ProfilePayoutInformationScreen"
-					component={ProfilePayoutInformationScreen}
-					options={{
-						title: "Profile - Payout information ",
-					}}
-				/>
-				<Stack.Screen
 					name="NotificationsScreen"
 					component={NotificationsScreen}
 					options={{
@@ -324,6 +316,13 @@ export default function RootAppNavigator() {
 						title: "[Assignor]Home - Referee vacancies",
 					}}
 				/> */}
+				<Stack.Screen
+					name="NotificationsScreen"
+					component={NotificationsScreen}
+					options={{
+						title: "Notifications",
+					}}
+				/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
