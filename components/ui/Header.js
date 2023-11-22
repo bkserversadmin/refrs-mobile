@@ -1,31 +1,42 @@
-import { withTheme, Link, Icon, Touchable } from "@draftbit/ui";
+import { withTheme, Link, Icon, Touchable, IconButton } from "@draftbit/ui";
 import { Text, View, useWindowDimensions } from "react-native";
 import * as StyleSheet from "../../utils/StyleSheet";
 import * as GlobalStyles from "../../GlobalStyles.js";
 
 const Header = (props) => {
-	const { theme, navigation, name } = props;
+	const { theme, navigation, name, canGoBack = false } = props;
 	const dimensions = useWindowDimensions();
+
+	const backHandler = () => {
+		navigation.goBack();
+	};
 
 	return (
 		<View
-			style={StyleSheet.applyWidth(
-				{
-					alignItems: "center",
-					alignSelf: "center",
-					backgroundColor: "rgb(61, 61, 61)",
-					flexDirection: "row",
-					height: 64,
-					justifyContent: "space-between",
-					paddingBottom: 12,
-					paddingLeft: 16,
-					paddingRight: 16,
-					paddingTop: 12,
-					width: "100%",
-				},
-				dimensions.width
-			)}
+			style={{
+				alignItems: "center",
+				alignSelf: "center",
+				backgroundColor: "rgb(61, 61, 61)",
+				flexDirection: "row",
+				height: 64,
+				justifyContent: "space-between",
+				paddingBottom: 12,
+				paddingLeft: 16,
+				paddingRight: 16,
+				paddingTop: 12,
+				width: "100%",
+				...dimensions.width,
+			}}
 		>
+			{canGoBack && (
+				<Touchable onPress={() => backHandler()}>
+					<Icon
+						color={"rgb(255, 255, 255)"}
+						name={"Entypo/chevron-left"}
+						size={30}
+					/>
+				</Touchable>
+			)}
 			<Text
 				accessible={true}
 				allowFontScaling={true}

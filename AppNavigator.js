@@ -21,7 +21,6 @@ import ProfileScreen from "./screens/ProfileScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import * as StyleSheet from "./utils/StyleSheet";
 import * as GlobalStyles from "./GlobalStyles.js";
-import Images from "./config/Images";
 
 const Stack = createStackNavigator();
 const GamesStack = createStackNavigator();
@@ -101,7 +100,6 @@ const MainTabNavigator = (props) => {
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,
-
 					tabBarIcon: ({ focused }) =>
 						tabButton(
 							"My Games",
@@ -110,21 +108,6 @@ const MainTabNavigator = (props) => {
 						),
 				}}
 			/>
-			{/* <Tab.Screen
-				name="MyGamesScreen"
-				component={MyGamesScreen}
-				options={{
-					tabBarShowLabel: false,
-					headerShown: false,
-
-					tabBarIcon: ({ focused }) =>
-						tabButton(
-							"My Games",
-							"MaterialCommunityIcons/whistle-outline",
-							focused
-						),
-				}}
-			/> */}
 			<Tab.Screen
 				name="EarningsScreen"
 				component={EarningsScreen}
@@ -321,6 +304,7 @@ export default function RootAppNavigator() {
 					component={NotificationsScreen}
 					options={{
 						title: "Notifications",
+						headerShown: false,
 					}}
 				/>
 			</Stack.Navigator>
