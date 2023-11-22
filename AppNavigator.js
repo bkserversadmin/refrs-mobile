@@ -24,6 +24,7 @@ import * as GlobalStyles from "./GlobalStyles.js";
 
 const Stack = createStackNavigator();
 const GamesStack = createStackNavigator();
+const EarningsStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const tabButton = (label, iconName, focused, isProfile) => {
@@ -95,7 +96,7 @@ const MainTabNavigator = (props) => {
 			}}
 		>
 			<Tab.Screen
-				name="MyGamesScreen"
+				name="GamesStack"
 				component={GamesNavigatorStack}
 				options={{
 					tabBarShowLabel: false,
@@ -109,8 +110,8 @@ const MainTabNavigator = (props) => {
 				}}
 			/>
 			<Tab.Screen
-				name="EarningsScreen"
-				component={EarningsScreen}
+				name="EarningStack"
+				component={EarningNavigatorStack}
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,
@@ -157,6 +158,34 @@ const GamesNavigatorStack = (props) => {
 				}}
 			/>
 		</GamesStack.Navigator>
+	);
+};
+
+const EarningNavigatorStack = (props) => {
+	return (
+		<EarningsStack.Navigator
+			initialRouteName="EarningsScreen"
+			screenOptions={{
+				animationEnabled: true,
+			}}
+		>
+			<EarningsStack.Screen
+				name="EarningsScreen"
+				component={EarningsScreen}
+				options={{
+					title: "My earnings",
+					headerShown: false,
+				}}
+			/>
+			<EarningsStack.Screen
+				name="EarningsDetailsScreen"
+				component={EarningsDetailsScreen}
+				options={{
+					headerShown: false,
+					title: "Earnings Details",
+				}}
+			/>
+		</EarningsStack.Navigator>
 	);
 };
 
