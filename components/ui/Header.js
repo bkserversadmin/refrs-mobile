@@ -36,6 +36,11 @@ const Header = (props) => {
 						name={"Entypo/chevron-left"}
 						size={30}
 					/>
+					{/* <Icon
+					color={theme.colors["Grey100"]}
+					name={"AntDesign/left"}
+					size={24}
+				/> */}
 				</Touchable>
 			)}
 			<Text
