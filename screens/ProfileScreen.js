@@ -4,6 +4,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import AuthLayout from "../components/layout/AuthLayout.js";
 
 import { RefereProfile } from "../components/profile/RefereeProfile.js";
+import { AssignorProfile } from "../components/profile/AssignorProfile.js";
+import { SportProfile } from "../components/profile/SportProfile.js";
 
 const ProfileScreen = (props) => {
 	const { theme, navigation } = props;
@@ -15,6 +17,8 @@ const ProfileScreen = (props) => {
 				showsVerticalScrollIndicator={true}
 			>
 				<RefereProfile theme={theme} />
+				{/* <AssignorProfile theme={theme} />
+				<SportProfile theme={theme} /> */}
 			</KeyboardAwareScrollView>
 		</AuthLayout>
 	);

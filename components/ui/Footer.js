@@ -1,7 +1,7 @@
 import { withTheme, Link } from "@draftbit/ui";
+import { Text, View, useWindowDimensions } from "react-native";
 import * as StyleSheet from "../../utils/StyleSheet";
 import * as GlobalStyles from "../../GlobalStyles.js";
-import { Text, View, useWindowDimensions } from "react-native";
 
 const Footer = (props) => {
 	const { theme, navigation } = props;
