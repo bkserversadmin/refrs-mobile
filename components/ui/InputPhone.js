@@ -12,10 +12,8 @@ const InputPhone = React.forwardRef((props, ref) => {
 		type = "phone-pad",
 		placeholder = null,
 		error,
-		extraClasses,
 		onChange = null,
 		value = null,
-		errorColor = "default",
 		label,
 		theme,
 		...rest

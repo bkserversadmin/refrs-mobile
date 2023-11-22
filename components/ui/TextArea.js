@@ -7,16 +7,14 @@ import { View, Text } from "react-native";
 import { TextInput } from "@draftbit/ui";
 import React, { useId } from "react";
 
-const InputField = React.forwardRef((props, ref) => {
+const TextArea = React.forwardRef((props, ref) => {
 	const {
 		type = "default",
-		secureTextEntry = false,
 		placeholder = null,
 		error,
 		onChange = null,
 		value = null,
 		label,
-		secureText = false,
 		theme,
 		...rest
 	} = props;
@@ -26,12 +24,7 @@ const InputField = React.forwardRef((props, ref) => {
 
 	return (
 		<>
-			<View
-				style={StyleSheet.applyWidth(
-					{ marginBottom: 24, width: "100%" },
-					dimensions.width
-				)}
-			>
+			<View style={{ marginBottom: 24, width: "100%", ...dimensions.width }}>
 				<Text
 					accessible={true}
 					allowFontScaling={true}
@@ -53,34 +46,36 @@ const InputField = React.forwardRef((props, ref) => {
 
 				<TextInput
 					ref={ref}
-					id={`field-${id}`}
-					allowFontScaling={true}
+					id={`text-area-${id}`}
 					autoCapitalize={"none"}
 					autoFocus={true}
-					changeTextDelay={500}
 					keyboardType={type}
-					onChangeText={(value) => onChange(value)}
-					placeholder={placeholder ? placeholder : "Enter a value..."}
-					placeholderTextColor={theme.colors["Light"]}
-					secureTextEntry={secureText}
+					allowFontScaling={true}
+					changeTextDelay={500}
+					multiline={true}
+					numberOfLines={4}
+					onChangeText={(val) => onChange(val)}
+					placeholder={
+						placeholder
+							? placeholder
+							: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+					}
 					style={StyleSheet.applyWidth(
 						StyleSheet.compose(
-							GlobalStyles.TextInputStyles(theme)["Text Input"],
+							GlobalStyles.TextInputStyles(theme)["Text Area"],
 							{
-								backgroundColor: "rgb(245, 245, 245)",
-								color: "rgb(122, 122, 122)",
+								borderColor: theme.colors["Grey400"],
+								color: theme.colors["Grey600"],
 								fontFamily: "Inter_400Regular",
-								fontSize: 16,
-								paddingBottom: 20,
-								paddingLeft: 16,
-								paddingRight: 16,
-								paddingTop: 20,
-								textTransform: "none",
-								width: "100%",
+								fontSize: 12,
+								lineHeight: 16,
+								padding: 10,
+								height: 100,
 							}
 						),
 						dimensions.width
 					)}
+					textAlignVertical={"top"}
 					value={value}
 					{...rest}
 				/>
@@ -103,4 +98,4 @@ const InputField = React.forwardRef((props, ref) => {
 	);
 });
 
-export default withTheme(InputField);
+export default withTheme(TextArea);

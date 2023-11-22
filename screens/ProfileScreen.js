@@ -26,6 +26,7 @@ import AuthLayout from "../components/layout/AuthLayout.js";
 import InputField from "../components/ui/InputField.js";
 import SelectField from "../components/ui/SelectField.js";
 import InputPhone from "../components/ui/InputPhone.js";
+import TextArea from "../components/ui/TextArea.js";
 
 const ProfileScreen = (props) => {
 	const dimensions = useWindowDimensions();
@@ -479,67 +480,11 @@ const ProfileScreen = (props) => {
 						>
 							{"Experience"}
 						</Text>
-						{/* form_control */}
-						<View
-							style={StyleSheet.applyWidth(
-								{ marginBottom: 24, width: "100%" },
-								dimensions.width
-							)}
-						>
-							{/* Text 3 */}
-							<Text
-								accessible={true}
-								allowFontScaling={true}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
-										color: "rgb(92, 92, 92)",
-										fontFamily: "Inter_500Medium",
-										fontSize: 10,
-										letterSpacing: 1.5,
-										marginBottom: 8,
-										paddingLeft: 16,
-										textTransform: "uppercase",
-									}),
-									dimensions.width
-								)}
-							>
-								{"certification"}
-							</Text>
-							{/* experience_textarea */}
-							<TextInput
-								allowFontScaling={true}
-								changeTextDelay={500}
-								multiline={true}
-								numberOfLines={4}
-								onChangeText={(newExperienceTextareaValue) => {
-									const textInputValue = newExperienceTextareaValue;
-									try {
-										setTextAreaValue(newExperienceTextareaValue);
-									} catch (err) {
-										console.error(err);
-									}
-								}}
-								placeholder={
-									"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-								}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(
-										GlobalStyles.TextInputStyles(theme)["Text Area"],
-										{
-											borderColor: theme.colors["Grey400"],
-											color: theme.colors["Grey600"],
-											fontFamily: "Inter_400Regular",
-											fontSize: 12,
-											lineHeight: 16,
-											padding: 10,
-										}
-									),
-									dimensions.width
-								)}
-								textAlignVertical={"top"}
-								value={textAreaValue}
-							/>
-						</View>
+						<TextArea
+							theme={theme}
+							label="experience"
+							onChange={(val) => console.log("el val", val)}
+						/>
 						{/* Primary button */}
 						<Button
 							onPress={() => {
