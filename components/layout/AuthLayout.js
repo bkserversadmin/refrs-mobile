@@ -1,11 +1,22 @@
 import { withTheme, ScreenContainer } from "@draftbit/ui";
 import { SafeAreaView, ScrollView, useWindowDimensions } from "react-native";
+import { useCallback } from "react";
 import * as StyleSheet from "../../utils/StyleSheet";
 import Header from "../ui/Header.js";
 
 const AuthLayout = (props) => {
-	const { name, children, navigation } = props;
+	const {
+		name,
+		children,
+		navigation,
+		noTabBar = false,
+		canGoBackToolBar = false,
+	} = props;
 	const dimensions = useWindowDimensions();
+
+	const viewClasses = useCallback(() => {
+		return !noTabBar ? "mb-20" : "";
+	}, [noTabBar]);
 
 	return (
 		<ScreenContainer
@@ -13,7 +24,6 @@ const AuthLayout = (props) => {
 			scrollable={false}
 			style={StyleSheet.applyWidth(
 				{ backgroundColor: "rgb(61, 61, 61)" },
-				// { backgroundColor: "rgb(245, 245, 245)" },
 				dimensions.width
 			)}
 			hasTopSafeArea={true}
@@ -23,13 +33,17 @@ const AuthLayout = (props) => {
 				className="h-full w-full"
 			>
 				{/* Header */}
-				<Header name={name} navigation={navigation} />
+				<Header
+					name={name}
+					navigation={navigation}
+					canGoBack={canGoBackToolBar}
+				/>
 
 				<ScrollView
 					bounces={true}
 					showsHorizontalScrollIndicator={true}
 					showsVerticalScrollIndicator={true}
-					className="mb-20"
+					className={viewClasses()}
 				>
 					{children}
 				</ScrollView>

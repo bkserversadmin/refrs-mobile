@@ -21,10 +21,10 @@ import ProfileScreen from "./screens/ProfileScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import * as StyleSheet from "./utils/StyleSheet";
 import * as GlobalStyles from "./GlobalStyles.js";
-import Images from "./config/Images";
 
 const Stack = createStackNavigator();
 const GamesStack = createStackNavigator();
+const EarningsStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const tabButton = (label, iconName, focused, isProfile) => {
@@ -96,12 +96,11 @@ const MainTabNavigator = (props) => {
 			}}
 		>
 			<Tab.Screen
-				name="MyGamesScreen"
+				name="GamesStack"
 				component={GamesNavigatorStack}
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,
-
 					tabBarIcon: ({ focused }) =>
 						tabButton(
 							"My Games",
@@ -110,24 +109,9 @@ const MainTabNavigator = (props) => {
 						),
 				}}
 			/>
-			{/* <Tab.Screen
-				name="MyGamesScreen"
-				component={MyGamesScreen}
-				options={{
-					tabBarShowLabel: false,
-					headerShown: false,
-
-					tabBarIcon: ({ focused }) =>
-						tabButton(
-							"My Games",
-							"MaterialCommunityIcons/whistle-outline",
-							focused
-						),
-				}}
-			/> */}
 			<Tab.Screen
-				name="EarningsScreen"
-				component={EarningsScreen}
+				name="EarningStack"
+				component={EarningNavigatorStack}
 				options={{
 					tabBarShowLabel: false,
 					headerShown: false,
@@ -174,6 +158,34 @@ const GamesNavigatorStack = (props) => {
 				}}
 			/>
 		</GamesStack.Navigator>
+	);
+};
+
+const EarningNavigatorStack = (props) => {
+	return (
+		<EarningsStack.Navigator
+			initialRouteName="EarningsScreen"
+			screenOptions={{
+				animationEnabled: true,
+			}}
+		>
+			<EarningsStack.Screen
+				name="EarningsScreen"
+				component={EarningsScreen}
+				options={{
+					title: "My earnings",
+					headerShown: false,
+				}}
+			/>
+			<EarningsStack.Screen
+				name="EarningsDetailsScreen"
+				component={EarningsDetailsScreen}
+				options={{
+					headerShown: false,
+					title: "Earnings Details",
+				}}
+			/>
+		</EarningsStack.Navigator>
 	);
 };
 
@@ -321,6 +333,7 @@ export default function RootAppNavigator() {
 					component={NotificationsScreen}
 					options={{
 						title: "Notifications",
+						headerShown: false,
 					}}
 				/>
 			</Stack.Navigator>

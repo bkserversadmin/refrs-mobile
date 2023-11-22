@@ -1,10 +1,10 @@
 import React from "react";
 import * as GlobalStyles from "../../../GlobalStyles.js";
-import * as StyleSheet from "../../../utils/StyleSheet";
+import * as StyleSheet from "../../../utils/StyleSheet.js";
 import { Button, withTheme } from "@draftbit/ui";
 import { Text, View, useWindowDimensions } from "react-native";
 
-const RefereePayoutInfo = (props) => {
+const PayoutInfo = (props) => {
 	const dimensions = useWindowDimensions();
 	const { theme } = props;
 
@@ -90,4 +90,4 @@ const RefereePayoutInfo = (props) => {
 	);
 };
 
-export default withTheme(RefereePayoutInfo);
+export default withTheme(PayoutInfo);

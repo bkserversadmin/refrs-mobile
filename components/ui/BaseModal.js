@@ -1,18 +1,8 @@
-import {
-	withTheme,
-	Shadow,
-	IconButton,
-	MultiSelectPicker,
-	Slider,
-	Button,
-	Touchable,
-} from "@draftbit/ui";
+import { withTheme, Shadow, IconButton } from "@draftbit/ui";
 import * as GlobalStyles from "../../GlobalStyles";
 import * as StyleSheet from "../../utils/StyleSheet";
 import { View, Text, Modal, useWindowDimensions } from "react-native";
 import { useOutsideClick } from "../../hooks/use-aoutside-click";
-import { useState } from "react";
-import { TouchableOpacity } from "react-native";
 
 const BaseModal = (props) => {
 	const { isOpen, theme, children, title, onClose } = props;

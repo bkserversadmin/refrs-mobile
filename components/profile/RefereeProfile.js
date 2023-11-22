@@ -1,17 +1,11 @@
 import { withTheme, Button } from "@draftbit/ui";
-import { Text, View, useWindowDimensions } from "react-native";
-import * as GlobalStyles from "../../GlobalStyles.js";
-import * as GlobalVariables from "../../config/GlobalVariableContext.js";
+import { useState } from "react";
+import { View, useWindowDimensions } from "react-native";
 import * as StyleSheet from "../../utils/StyleSheet.js";
-import InputField from "../ui/InputField.js";
-import InputPhone from "../ui/InputPhone";
-import SelectField from "../ui/SelectField.js";
-import TextArea from "../ui/TextArea.js";
 import ProfileHeader from "./ProfileHeader.js";
 import TabButton from "../ui/Tab.js";
-import { useState } from "react";
 import RefereeProfileForm from "./forms/RefereeProfileForm.js";
-import RefereePayoutInfo from "./stripe/RefereePayoutInfo.js";
+import PayoutInfo from "./stripe/PayoutInfo.js";
 
 const optionsTab = [
 	{
@@ -39,7 +33,6 @@ export const RefereProfile = (props) => {
 					dimensions.width
 				)}
 			>
-				{/* Row */}
 				<View
 					style={{
 						alignItems: "center",
@@ -68,7 +61,7 @@ export const RefereProfile = (props) => {
 				{activeTab === "personal-information" ? (
 					<RefereeProfileForm theme={theme} />
 				) : (
-					<RefereePayoutInfo theme={theme} />
+					<PayoutInfo theme={theme} />
 				)}
 			</View>
 		</>
