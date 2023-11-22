@@ -23,6 +23,9 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AuthLayout from "../components/layout/AuthLayout.js";
+import InputField from "../components/ui/InputField.js";
+import SelectField from "../components/ui/SelectField.js";
+import InputPhone from "../components/ui/InputPhone.js";
 
 const ProfileScreen = (props) => {
 	const dimensions = useWindowDimensions();
@@ -43,17 +46,20 @@ const ProfileScreen = (props) => {
 			>
 				{/* Summary container */}
 				<View
-					style={StyleSheet.applyWidth(
-						{ alignContent: "center", alignItems: "center", padding: 20 },
-						dimensions.width
-					)}
+					style={{
+						alignContent: "center",
+						alignItems: "center",
+						padding: 20,
+						...dimensions.width,
+					}}
 				>
 					{/* Row */}
 					<View
-						style={StyleSheet.applyWidth(
-							{ alignItems: "center", flexDirection: "row" },
-							dimensions.width
-						)}
+						style={{
+							alignItems: "center",
+							flexDirection: "row",
+							...dimensions.width,
+						}}
 					>
 						<Image
 							resizeMode={"cover"}
@@ -84,17 +90,20 @@ const ProfileScreen = (props) => {
 					</View>
 					{/* Row */}
 					<View
-						style={StyleSheet.applyWidth(
-							{ alignItems: "center", flexDirection: "row", marginTop: 16 },
-							dimensions.width
-						)}
+						style={{
+							alignItems: "center",
+							flexDirection: "row",
+							marginTop: 16,
+							...dimensions.width,
+						}}
 					>
 						{/* Total games */}
 						<View
-							style={StyleSheet.applyWidth(
-								{ alignItems: "center", marginRight: 24 },
-								dimensions.width
-							)}
+							style={{
+								alignItems: "center",
+								marginRight: 24,
+								...dimensions.width,
+							}}
 						>
 							<Text
 								accessible={true}
@@ -109,9 +118,8 @@ const ProfileScreen = (props) => {
 									dimensions.width
 								)}
 							>
-								{"Total games"}
+								Total games
 							</Text>
-							{/* Text 2 */}
 							<Text
 								accessible={true}
 								allowFontScaling={true}
@@ -125,10 +133,9 @@ const ProfileScreen = (props) => {
 									dimensions.width
 								)}
 							>
-								{"14"}
+								14
 							</Text>
 						</View>
-						{/* Average per game */}
 						<View
 							style={StyleSheet.applyWidth(
 								{ alignItems: "center" },
@@ -148,7 +155,7 @@ const ProfileScreen = (props) => {
 									dimensions.width
 								)}
 							>
-								{"Average pay per game"}
+								Average pay per game
 							</Text>
 							{/* Text 2 */}
 							<Text
@@ -164,7 +171,7 @@ const ProfileScreen = (props) => {
 									dimensions.width
 								)}
 							>
-								{"$25"}
+								$25
 							</Text>
 						</View>
 					</View>
@@ -226,7 +233,6 @@ const ProfileScreen = (props) => {
 							title={"Payout information"}
 						/>
 					</View>
-					{/* Detailed information container */}
 					<View>
 						<Text
 							accessible={true}
@@ -242,344 +248,46 @@ const ProfileScreen = (props) => {
 								dimensions.width
 							)}
 						>
-							{"Detailed information"}
+							Detailed information
 						</Text>
-						{/* form_control */}
-						<View
-							style={StyleSheet.applyWidth(
-								{ marginBottom: 24, width: "100%" },
-								dimensions.width
-							)}
-						>
-							{/* Text 3 */}
-							<Text
-								accessible={true}
-								allowFontScaling={true}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
-										color: "rgb(92, 92, 92)",
-										fontFamily: "Inter_500Medium",
-										fontSize: 10,
-										letterSpacing: 1.5,
-										marginBottom: 8,
-										paddingLeft: 16,
-										textTransform: "uppercase",
-									}),
-									dimensions.width
-								)}
-							>
-								{"full name"}
-							</Text>
-							{/* full_name_input */}
-							<TextInput
-								allowFontScaling={true}
-								autoCapitalize={"none"}
-								changeTextDelay={500}
-								placeholder={"first name"}
-								placeholderTextColor={theme.colors["Light"]}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(
-										GlobalStyles.TextInputStyles(theme)["Text Input"],
-										{
-											backgroundColor: "rgb(245, 245, 245)",
-											color: "rgb(122, 122, 122)",
-											fontFamily: "Inter_400Regular",
-											fontSize: 16,
-											paddingBottom: 20,
-											paddingLeft: 16,
-											paddingRight: 16,
-											paddingTop: 20,
-											textTransform: "none",
-											width: "100%",
-										}
-									),
-									dimensions.width
-								)}
-							/>
-							{/* error firstname text */}
-							<Text
-								accessible={true}
-								allowFontScaling={true}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
-										color: theme.colors["System/Error500"],
-									}),
-									dimensions.width
-								)}
-							>
-								{null}
-							</Text>
-						</View>
-						{/* form_control 2 */}
-						<View
-							style={StyleSheet.applyWidth(
-								{ marginBottom: 24, width: "100%" },
-								dimensions.width
-							)}
-						>
-							{/* Text 3 */}
-							<Text
-								accessible={true}
-								allowFontScaling={true}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
-										color: "rgb(92, 92, 92)",
-										fontFamily: "Inter_500Medium",
-										fontSize: 10,
-										letterSpacing: 1.5,
-										marginBottom: 8,
-										paddingLeft: 16,
-										textTransform: "uppercase",
-									}),
-									dimensions.width
-								)}
-							>
-								{"sports"}
-							</Text>
-							{/* sports_input */}
-							<TextInput
-								allowFontScaling={true}
-								autoCapitalize={"none"}
-								changeTextDelay={500}
-								placeholder={"first name"}
-								placeholderTextColor={theme.colors["Light"]}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(
-										GlobalStyles.TextInputStyles(theme)["Text Input"],
-										{
-											backgroundColor: "rgb(245, 245, 245)",
-											color: "rgb(122, 122, 122)",
-											fontFamily: "Inter_400Regular",
-											fontSize: 16,
-											paddingBottom: 20,
-											paddingLeft: 16,
-											paddingRight: 16,
-											paddingTop: 20,
-											textTransform: "none",
-											width: "100%",
-										}
-									),
-									dimensions.width
-								)}
-							/>
-						</View>
-						{/* form_control 3 */}
-						<View
-							style={StyleSheet.applyWidth(
-								{ marginBottom: 24, width: "100%" },
-								dimensions.width
-							)}
-						>
-							{/* Text 3 */}
-							<Text
-								accessible={true}
-								allowFontScaling={true}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
-										color: "rgb(92, 92, 92)",
-										fontFamily: "Inter_500Medium",
-										fontSize: 10,
-										letterSpacing: 1.5,
-										marginBottom: 8,
-										paddingLeft: 16,
-										textTransform: "uppercase",
-									}),
-									dimensions.width
-								)}
-							>
-								{"state"}
-							</Text>
-							{/* state_input */}
-							<TextInput
-								allowFontScaling={true}
-								autoCapitalize={"none"}
-								changeTextDelay={500}
-								placeholder={"first name"}
-								placeholderTextColor={theme.colors["Light"]}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(
-										GlobalStyles.TextInputStyles(theme)["Text Input"],
-										{
-											backgroundColor: "rgb(245, 245, 245)",
-											color: "rgb(122, 122, 122)",
-											fontFamily: "Inter_400Regular",
-											fontSize: 16,
-											paddingBottom: 20,
-											paddingLeft: 16,
-											paddingRight: 16,
-											paddingTop: 20,
-											textTransform: "none",
-											width: "100%",
-										}
-									),
-									dimensions.width
-								)}
-							/>
-						</View>
-						{/* form_control 4 */}
-						<View
-							style={StyleSheet.applyWidth(
-								{ marginBottom: 24, width: "100%" },
-								dimensions.width
-							)}
-						>
-							{/* Text 3 */}
-							<Text
-								accessible={true}
-								allowFontScaling={true}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
-										color: "rgb(92, 92, 92)",
-										fontFamily: "Inter_500Medium",
-										fontSize: 10,
-										letterSpacing: 1.5,
-										marginBottom: 8,
-										paddingLeft: 16,
-										textTransform: "uppercase",
-									}),
-									dimensions.width
-								)}
-							>
-								{"city"}
-							</Text>
-							{/* city_input */}
-							<TextInput
-								allowFontScaling={true}
-								autoCapitalize={"none"}
-								changeTextDelay={500}
-								placeholder={"first name"}
-								placeholderTextColor={theme.colors["Light"]}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(
-										GlobalStyles.TextInputStyles(theme)["Text Input"],
-										{
-											backgroundColor: "rgb(245, 245, 245)",
-											color: "rgb(122, 122, 122)",
-											fontFamily: "Inter_400Regular",
-											fontSize: 16,
-											paddingBottom: 20,
-											paddingLeft: 16,
-											paddingRight: 16,
-											paddingTop: 20,
-											textTransform: "none",
-											width: "100%",
-										}
-									),
-									dimensions.width
-								)}
-							/>
-						</View>
+
+						<InputField
+							placeholder="First Name"
+							label="first name"
+							theme={theme}
+						/>
+						<InputField
+							placeholder="Last Name"
+							label="Last name"
+							theme={theme}
+						/>
+						<SelectField
+							options={[]}
+							placeholder={"Select an option"}
+							label="Sports"
+							theme={theme}
+						/>
+						<SelectField
+							options={[]}
+							placeholder={"Select an option"}
+							label="State"
+							theme={theme}
+						/>
+						<SelectField
+							options={[]}
+							placeholder={"Select an option"}
+							label="City"
+							theme={theme}
+						/>
+
 						{/* form_control 5 */}
-						<View
-							style={StyleSheet.applyWidth(
-								{ marginBottom: 24, width: "100%" },
-								dimensions.width
-							)}
-						>
-							{/* Text 3 */}
-							<Text
-								accessible={true}
-								allowFontScaling={true}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
-										color: "rgb(92, 92, 92)",
-										fontFamily: "Inter_500Medium",
-										fontSize: 10,
-										letterSpacing: 1.5,
-										marginBottom: 8,
-										paddingLeft: 16,
-										textTransform: "uppercase",
-									}),
-									dimensions.width
-								)}
-							>
-								{"contact number"}
-							</Text>
-							{/* contact_number_input */}
-							<NumberInput
-								allowFontScaling={true}
-								changeTextDelay={500}
-								onChangeText={(newContactNumberInputValue) => {
-									const numberInputValue = newContactNumberInputValue;
-									try {
-										setNumberInputValue(newContactNumberInputValue);
-									} catch (err) {
-										console.error(err);
-									}
-								}}
-								placeholder={"Enter a number..."}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(
-										GlobalStyles.NumberInputStyles(theme)["Number Input"],
-										{
-											backgroundColor: theme.colors["Grey200"],
-											color: theme.colors["Grey600"],
-											fontFamily: "Inter_400Regular",
-											fontSize: 16,
-											paddingBottom: 20,
-											paddingLeft: 16,
-											paddingRight: 16,
-											paddingTop: 20,
-										}
-									),
-									dimensions.width
-								)}
-								value={numberInputValue}
-							/>
-						</View>
-						{/* form_control 6 */}
-						<View
-							style={StyleSheet.applyWidth(
-								{ marginBottom: 24, width: "100%" },
-								dimensions.width
-							)}
-						>
-							{/* Text 3 */}
-							<Text
-								accessible={true}
-								allowFontScaling={true}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
-										color: "rgb(92, 92, 92)",
-										fontFamily: "Inter_500Medium",
-										fontSize: 10,
-										letterSpacing: 1.5,
-										marginBottom: 8,
-										paddingLeft: 16,
-										textTransform: "uppercase",
-									}),
-									dimensions.width
-								)}
-							>
-								{"email"}
-							</Text>
-							{/* email_input */}
-							<TextInput
-								allowFontScaling={true}
-								autoCapitalize={"none"}
-								changeTextDelay={500}
-								placeholder={"first name"}
-								placeholderTextColor={theme.colors["Light"]}
-								style={StyleSheet.applyWidth(
-									StyleSheet.compose(
-										GlobalStyles.TextInputStyles(theme)["Text Input"],
-										{
-											backgroundColor: "rgb(245, 245, 245)",
-											color: "rgb(122, 122, 122)",
-											fontFamily: "Inter_400Regular",
-											fontSize: 16,
-											paddingBottom: 20,
-											paddingLeft: 16,
-											paddingRight: 16,
-											paddingTop: 20,
-											textTransform: "none",
-											width: "100%",
-										}
-									),
-									dimensions.width
-								)}
-							/>
-						</View>
+						<InputPhone
+							label="Contact Number"
+							placeholder="xxx-xxxx"
+							onChange={(val) => console.log("el val phone ===>", val)}
+							theme={theme}
+						/>
+						<InputField placeholder="email" label="email" theme={theme} />
 					</View>
 					{/* Certification container */}
 					<View
