@@ -30,7 +30,7 @@ const GameDetailsScreen = (props) => {
 	const setGlobalVariableValue = GlobalVariables.useSetValue();
 
 	return (
-		<AuthLayout name="Game Details" navigation={navigation}>
+		<AuthLayout name="Game Details" navigation={navigation} canGoBackToolBar>
 			<Shadow
 				paintInside={true}
 				showShadowCornerBottomEnd={true}
