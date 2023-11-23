@@ -4,9 +4,17 @@ import * as GlobalStyles from "../../GlobalStyles";
 import * as StyleSheet from "../../utils/StyleSheet";
 import BaseModal from "../ui/BaseModal";
 
+//  type GamesFilterModalProps = {
+// 	theme: any;
+// 	isOpen: Boolean;
+// 	onClose: () => void;
+// 	variant: 'referee' | 'assignor' | 'so'
+// }
+
 const GamesFilterModal = (props) => {
-	const { theme, isOpen, onClose } = props;
+	const { theme, isOpen, onClose, variant = "referee" } = props;
 	const dimensions = useWindowDimensions();
+
 	return (
 		<BaseModal isOpen={isOpen} title="Filter games" onClose={onClose}>
 			<View style={{ alignContent: "flex-end" }}>
