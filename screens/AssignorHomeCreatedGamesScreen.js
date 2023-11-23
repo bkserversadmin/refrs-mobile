@@ -34,37 +34,7 @@ const AssignorHomeCreatedGamesScreen = (props) => {
 
 	const isFocused = useIsFocused();
 	React.useEffect(() => {
-		const handler = async () => {
-			console.log("Screen ON_SCREEN_FOCUS Start");
-			let error = null;
-			try {
-				if (!isFocused) {
-					return;
-				}
-				console.log("Start ON_SCREEN_FOCUS:0 EXTRACT_KEY");
-				const profile_id_extract = Constants["user_session"]?.id;
-				console.log("Complete ON_SCREEN_FOCUS:0 EXTRACT_KEY", {
-					profile_id_extract,
-				});
-				console.log("Start ON_SCREEN_FOCUS:1 FETCH_REQUEST");
-				const games = (
-					await SupabaseStagingApi.getGamesAssignorGET(Constants, {
-						profile_id: profile_id_extract,
-					})
-				)?.json;
-				console.log("Complete ON_SCREEN_FOCUS:1 FETCH_REQUEST", { games });
-				console.log("Start ON_SCREEN_FOCUS:2 CONSOLE_LOG");
-				console.log(games, profile_id_extract);
-				console.log("Complete ON_SCREEN_FOCUS:2 CONSOLE_LOG");
-			} catch (err) {
-				console.error(err);
-				error = err.message ?? err;
-			}
-			console.log(
-				"Screen ON_SCREEN_FOCUS Complete",
-				error ? { error } : "no error"
-			);
-		};
+		const handler = async () => {};
 		handler();
 	}, [isFocused]);
 	const [pickerValue, setPickerValue] = React.useState(undefined);

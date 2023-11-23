@@ -26,7 +26,7 @@ const TabButton = (props) => {
 						fontWeight: "400",
 						letterSpacing: 0.25,
 					}}
-					className="capitalize text-center mx-auto"
+					className="capitalize text-center mx-auto text-xs"
 				>
 					{text}
 				</Text>
