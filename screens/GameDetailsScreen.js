@@ -43,29 +43,23 @@ const GameDetailsScreen = (props) => {
 				showShadowSideTop={true}
 				style={StyleSheet.applyWidth({ width: "100%" }, dimensions.width)}
 			>
-				{/* Game summary */}
 				<View
-					style={StyleSheet.applyWidth(
-						{
-							backgroundColor: "rgb(255, 255, 255)",
-							borderBottomLeftRadius: 24,
-							borderBottomRightRadius: 24,
-							padding: 20,
-						},
-						dimensions.width
-					)}
+					style={{
+						backgroundColor: "rgb(255, 255, 255)",
+						borderBottomLeftRadius: 24,
+						borderBottomRightRadius: 24,
+						padding: 20,
+						...dimensions.width,
+					}}
 				>
-					{/* Row */}
 					<View
-						style={StyleSheet.applyWidth(
-							{
-								alignItems: "center",
-								flexDirection: "row",
-								justifyContent: "space-between",
-								marginBottom: 24,
-							},
-							dimensions.width
-						)}
+						style={{
+							alignItems: "center",
+							flexDirection: "row",
+							justifyContent: "space-between",
+							marginBottom: 24,
+							...dimensions.width,
+						}}
 					>
 						<Text
 							accessible={true}
@@ -79,21 +73,19 @@ const GameDetailsScreen = (props) => {
 								dimensions.width
 							)}
 						>
-							{"MPLS League Game"}
+							MPLS League Game
 						</Text>
 						{/* Level Var */}
 						<View
-							style={StyleSheet.applyWidth(
-								{
-									backgroundColor: theme.colors["Secondary/Bluegreen100"],
-									borderRadius: 100,
-									paddingBottom: 8,
-									paddingLeft: 12,
-									paddingRight: 12,
-									paddingTop: 8,
-								},
-								dimensions.width
-							)}
+							style={{
+								backgroundColor: theme.colors["Secondary/Bluegreen100"],
+								borderRadius: 100,
+								paddingBottom: 8,
+								paddingLeft: 12,
+								paddingRight: 12,
+								paddingTop: 8,
+								...dimensions.width,
+							}}
 						>
 							<Text
 								accessible={true}
@@ -108,17 +100,11 @@ const GameDetailsScreen = (props) => {
 									dimensions.width
 								)}
 							>
-								{"Level Var."}
+								Level Var.
 							</Text>
 						</View>
 					</View>
-					{/* info container */}
-					<View
-						style={StyleSheet.applyWidth(
-							{ marginBottom: 24 },
-							dimensions.width
-						)}
-					>
+					<View style={{ marginBottom: 24, ...dimensions.width }}>
 						<Text
 							accessible={true}
 							allowFontScaling={true}
@@ -132,9 +118,8 @@ const GameDetailsScreen = (props) => {
 								dimensions.width
 							)}
 						>
-							{"Teams"}
+							Teams
 						</Text>
-						{/* Text 2 */}
 						<Text
 							accessible={true}
 							allowFontScaling={true}
@@ -144,14 +129,13 @@ const GameDetailsScreen = (props) => {
 									fontFamily: "Inter_400Regular",
 									fontSize: 16,
 									letterSpacing: 0.15,
-								}),
-								dimensions.width
+									...dimensions.width,
+								})
 							)}
 						>
-							{"LA Lakers vs Chicago Bulls"}
+							LA Lakers vs Chicago Bulls
 						</Text>
 					</View>
-					{/* Row */}
 					<View
 						style={StyleSheet.applyWidth(
 							{
@@ -162,7 +146,6 @@ const GameDetailsScreen = (props) => {
 							dimensions.width
 						)}
 					>
-						{/* Organized by */}
 						<View>
 							<Text
 								accessible={true}
@@ -177,7 +160,7 @@ const GameDetailsScreen = (props) => {
 									dimensions.width
 								)}
 							>
-								{"Organized by "}
+								Organized by
 							</Text>
 							{/* Row */}
 							<View
@@ -249,7 +232,6 @@ const GameDetailsScreen = (props) => {
 							</Text>
 						</View>
 					</View>
-					{/* Assigned */}
 					<View
 						style={StyleSheet.applyWidth(
 							{ marginBottom: 32 },
