@@ -1,26 +1,9 @@
 import React, { useState } from "react";
 import * as GlobalStyles from "../GlobalStyles.js";
-import * as SupabaseStagingApi from "../apis/SupabaseStagingApi.js";
-import * as GlobalVariables from "../config/GlobalVariableContext";
-import Images from "../config/Images";
-import Breakpoints from "../utils/Breakpoints";
 import * as StyleSheet from "../utils/StyleSheet";
-import {
-	Button,
-	Icon,
-	IconButton,
-	MultiSelectPicker,
-	ScreenContainer,
-	Shadow,
-	Slider,
-	TextInput,
-	Touchable,
-	withTheme,
-} from "@draftbit/ui";
+import { Button, TextInput, withTheme } from "@draftbit/ui";
 import { useIsFocused } from "@react-navigation/native";
 import {
-	Image,
-	ScrollView,
 	Text,
 	TouchableOpacity,
 	View,
@@ -28,76 +11,37 @@ import {
 } from "react-native";
 import AuthLayout from "../components/layout/AuthLayout.js";
 import GameItem from "../components/games/GameItem.js";
-import BaseModal from "../components/ui/BaseModal.js";
 import GamesFilterModal from "../components/games/GamesFilterModal.js";
+import TabButtom from "../components/ui/Tab.js";
+
+const assignorTabOptions = [
+	{
+		text: "Your created games",
+		slug: "created-games",
+	},
+	{
+		text: "With referee vancancies",
+		slug: "referee-vacancies",
+	},
+];
 
 const MyGamesScreen = (props) => {
 	const dimensions = useWindowDimensions();
 	const { theme, navigation } = props;
-	const Constants = GlobalVariables.useValues();
-	const Variables = Constants;
-	const setGlobalVariableValue = GlobalVariables.useSetValue();
+	const [activeTab, setActiveTab] = useState("created-games");
 
 	const isFocused = useIsFocused();
-	React.useEffect(() => {
-		const handler = async () => {
-			console.log("Screen ON_SCREEN_FOCUS Start");
-			let error = null;
-			try {
-				if (!isFocused) {
-					return;
-				}
-				console.log("Start ON_SCREEN_FOCUS:0 EXTRACT_KEY");
-				const profile_id_extract = Constants["user_session"]?.id;
-				console.log("Complete ON_SCREEN_FOCUS:0 EXTRACT_KEY", {
-					profile_id_extract,
-				});
-				console.log("Start ON_SCREEN_FOCUS:1 FETCH_REQUEST");
-				const games = (
-					await SupabaseStagingApi.getGamesAssignorGET(Constants, {
-						profile_id: profile_id_extract,
-					})
-				)?.json;
-				console.log("Complete ON_SCREEN_FOCUS:1 FETCH_REQUEST", { games });
-				console.log("Start ON_SCREEN_FOCUS:2 CONSOLE_LOG");
-				console.log(games, profile_id_extract);
-				console.log("Complete ON_SCREEN_FOCUS:2 CONSOLE_LOG");
-			} catch (err) {
-				console.error(err);
-				error = err.message ?? err;
-			}
-			console.log(
-				"Screen ON_SCREEN_FOCUS Complete",
-				error ? { error } : "no error"
-			);
-		};
-		handler();
-	}, [isFocused]);
+	React.useEffect(() => {}, [isFocused]);
 	const [showFilters, setShowFilters] = useState(false);
-	const [multiSelectPickerValue, setMultiSelectPickerValue] = useState([]);
-	const [pickerValue, setPickerValue] = useState(undefined);
-	const [slider2Value, setSlider2Value] = useState(0);
-	const [sliderValue, setSliderValue] = useState(0);
-	const [textInputValue, setTextInputValue] = useState("");
 
 	return (
 		<AuthLayout name="Dashboard" navigation={navigation}>
 			{/* Welcome */}
 			<View
 				style={{
-					alignItems: "center",
-					alignSelf: "center",
-					backgroundColor: "rgba(245, 245, 245, 0)",
-					flexDirection: "row",
-					height: 64,
-					justifyContent: "space-between",
-					paddingBottom: 12,
-					paddingLeft: 16,
-					paddingRight: 16,
-					paddingTop: 12,
-					width: "100%",
 					...dimensions.width,
 				}}
+				className="w-full py-2 px-4 h-24 flex flex-row bg-[rgba(245, 245, 245, 0)] items-center justify-between"
 			>
 				<Text
 					accessible={true}
@@ -112,7 +56,7 @@ const MyGamesScreen = (props) => {
 						dimensions.width
 					)}
 				>
-					{"Welcome John"}
+					Enrique sarmiento
 				</Text>
 				<TouchableOpacity>
 					<Button
@@ -157,14 +101,7 @@ const MyGamesScreen = (props) => {
 					allowFontScaling={true}
 					autoCapitalize={"none"}
 					changeTextDelay={500}
-					onChangeText={(newTextInputValue) => {
-						const textInputValue = newTextInputValue;
-						try {
-							setTextInputValue(newTextInputValue);
-						} catch (err) {
-							console.error(err);
-						}
-					}}
+					onChangeText={(val) => console.log("val search", val)}
 					placeholder={"Enter a value..."}
 					style={StyleSheet.applyWidth(
 						StyleSheet.compose(
@@ -182,9 +119,21 @@ const MyGamesScreen = (props) => {
 						),
 						dimensions.width
 					)}
-					value={textInputValue}
 				/>
 			</View>
+			<View className="w-full h-20 flex flex-row justify-between items-center px-4">
+				{assignorTabOptions.map((tab) => (
+					<View className="w-[48%]" key={tab?.slug}>
+						<TabButtom
+							theme={theme}
+							text={tab?.text}
+							isActive={activeTab === tab?.slug}
+							onClick={() => setActiveTab(tab?.slug)}
+						></TabButtom>
+					</View>
+				))}
+			</View>
+
 			{/* Upcoming Games Content */}
 			<View>
 				<Text

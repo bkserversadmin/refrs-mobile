@@ -12,7 +12,7 @@ const BaseModal = (props) => {
 		<Modal
 			visible={isOpen}
 			transparent={true}
-			// animationType="slide"
+			animationType="slide"
 			onRequestClose={() => {
 				Alert.alert("Modal has been closed.");
 				onClose();
@@ -39,7 +39,7 @@ const BaseModal = (props) => {
 					showShadowSideStart={true}
 					showShadowSideTop={true}
 					style={{
-						width: 300,
+						width: 310,
 					}}
 				>
 					<View

@@ -54,9 +54,6 @@ export const RefereProfile = (props) => {
 							/>
 						</View>
 					))}
-					<View className="w-1/2">
-						<TabButton theme={theme} text="Payout Information" />
-					</View>
 				</View>
 				{activeTab === "personal-information" ? (
 					<RefereeProfileForm theme={theme} />
